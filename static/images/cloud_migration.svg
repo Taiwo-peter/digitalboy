@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff8177;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff867a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b721ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#21d4fd;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Cloud Migration Illustration -->
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#141414" />
+  
+  <!-- Source Server/Infrastructure -->
+  <g transform="translate(200, 300)">
+    <!-- Server rack -->
+    <rect x="-60" y="-80" width="120" height="160" rx="5" fill="#333" />
+    <rect x="-50" y="-70" width="100" height="20" rx="2" fill="#555" />
+    <rect x="-50" y="-40" width="100" height="20" rx="2" fill="#555" />
+    <rect x="-50" y="-10" width="100" height="20" rx="2" fill="#555" />
+    <rect x="-50" y="20" width="100" height="20" rx="2" fill="#555" />
+    <rect x="-50" y="50" width="100" height="20" rx="2" fill="#555" />
+    
+    <!-- Legacy label -->
+    <text x="0" y="100" font-family="Arial" font-size="16" fill="#fff" text-anchor="middle">Legacy Infrastructure</text>
+  </g>
+  
+  <!-- Cloud Destination -->
+  <g transform="translate(600, 300)">
+    <!-- Main cloud shape -->
+    <path d="M0,0 Q40,-50 80,-25 Q120,0 100,40 Q80,80 30,60 Q-20,40 -30,20 Q-40,0 0,0" fill="url(#cloudGrad)" />
+    
+    <!-- Cloud computing elements -->
+    <circle cx="-10" cy="10" r="15" fill="#ff8177" opacity="0.2" />
+    <circle cx="30" cy="0" r="15" fill="#21d4fd" opacity="0.2" />
+    <circle cx="10" cy="-20" r="15" fill="#b721ff" opacity="0.2" />
+    
+    <!-- Cloud label -->
+    <text x="0" y="100" font-family="Arial" font-size="16" fill="#fff" text-anchor="middle">Cloud Platform</text>
+  </g>
+  
+  <!-- Migration Direction Arrow -->
+  <g transform="translate(400, 300)">
+    <!-- Arrow shaft -->
+    <line x1="-150" y1="0" x2="120" y2="0" stroke="#fff" stroke-width="3" stroke-dasharray="10,5" />
+    
+    <!-- Arrow head -->
+    <polygon points="120,0 100,-15 100,15" fill="#fff" />
+    
+    <!-- Migration label -->
+    <text x="-20" y="-20" font-family="Arial" font-size="20" fill="url(#grad1)" text-anchor="middle">Migration</text>
+  </g>
+  
+  <!-- Data Packets Moving Along Path -->
+  <g>
+    <!-- Data packet 1 -->
+    <rect x="260" y="290" width="15" height="15" rx="2" fill="#ff8177">
+      <animate attributeName="x" values="260;540" dur="3s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Data packet 2 -->
+    <rect x="290" y="310" width="12" height="12" rx="2" fill="#21d4fd">
+      <animate attributeName="x" values="290;520" dur="4s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Data packet 3 -->
+    <rect x="230" y="295" width="10" height="10" rx="2" fill="#b721ff">
+      <animate attributeName="x" values="230;550" dur="3.5s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Heading -->
+  <text x="400" y="80" font-family="Arial" font-size="40" font-weight="bold" fill="url(#grad1)" text-anchor="middle">Cloud Migration</text>
+  
+  <!-- Subheading -->
+  <text x="400" y="120" font-family="Arial" font-size="24" fill="#fff" text-anchor="middle">Seamless transition to modern infrastructure</text>
+  
+  <!-- Benefits Callouts -->
+  <g transform="translate(400, 480)">
+    <!-- Benefit 1: Performance -->
+    <circle cx="-200" cy="0" r="30" fill="#ff8177" opacity="0.2" />
+    <text x="-200" y="5" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Performance</text>
+    
+    <!-- Benefit 2: Security -->
+    <circle cx="0" cy="0" r="30" fill="#21d4fd" opacity="0.2" />
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Security</text>
+    
+    <!-- Benefit 3: Scalability -->
+    <circle cx="200" cy="0" r="30" fill="#b721ff" opacity="0.2" />
+    <text x="200" y="5" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Scalability</text>
+  </g>
+</svg>
