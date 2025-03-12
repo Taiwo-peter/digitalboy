@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Migration - Tyledeclouds</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="{{ url_for('home') }}" class="navbar__links">Home</a></li>
+                <li class="navbar__item"><a href="{{ url_for('services') }}" class="navbar__links">Services</a></li>
+                <li class="navbar__item"><a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a></li>
+                <li class="navbar__item"><a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a></li>
+                <li class="navbar__btn"><a href="{{ url_for('signup') }}" class="button">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main__container">
+            <div class="main__content">
+                <h2>Cloud Migration</h2>
+                <h2>Services</h2>
+                <p>Move seamlessly to the cloud with our expert guidance</p>
+                <div class="button main__btn"><a href="{{ url_for('services') }}">Back to Services</a></div>
+            </div>
+            <div class="main__img--container">
+                <img src="{{ url_for('static', filename='images/cloud_migration.svg') }}" alt="Cloud Migration illustration" id="main__img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Details Section -->
+    <div class="service-details">
+        <div class="service-details__container">
+            <h1>Our Cloud Migration Process</h1>
+            
+            <div class="service-details__section">
+                <h2>Assessment & Planning</h2>
+                <p>We begin with a comprehensive assessment of your current infrastructure and develop a detailed migration plan tailored to your business needs. Our experts evaluate your applications, data, and processes to determine the most efficient migration path.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Migration Strategy</h2>
+                <p>Based on the assessment, we design a migration strategy that minimizes disruption and optimizes performance. Whether you need a lift-and-shift approach, re-platforming, or complete refactoring, we'll guide you through the best options.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Implementation & Testing</h2>
+                <p>Our skilled team handles the technical migration process, transferring your applications and data to the cloud environment. We conduct thorough testing at each stage to ensure everything functions as expected.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Training & Support</h2>
+                <p>We provide comprehensive training for your team to effectively manage the new cloud environment. Our ongoing support ensures a smooth transition and helps resolve any issues that may arise post-migration.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Optimization & Monitoring</h2>
+                <p>After migration, we continuously monitor your cloud environment and make recommendations for optimization. Our goal is to ensure you're getting the maximum benefit from your cloud investment.</p>
+            </div>
+            
+            <div class="service-details__cta">
+                <h2>Ready to migrate to the cloud?</h2>
+                <p>Contact our expert team today to schedule a consultation and discover how our cloud migration services can transform your business.</p>
+                <div class="button service-details__btn"><a href="{{ url_for('contactus') }}">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer__container">
+        <div class="footer__links">
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>About us</h2>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Contact Us</h2>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
+                </div>
+            </div>
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>Videos</h2>
+                    <a href="/">Submit Videos</a>
+                    <a href="/">Ambassadors</a>
+                    <a href="/">Agency</a>
+                    <a href="/">Influencer</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Social Media</h2>
+                    <a href="/">Instagram</a>
+                    <a href="/">YouTube</a>
+                    <a href="/">Facebook</a>
+                    <a href="/">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="social__media">
+            <div class="social__media--wrap">
+                <div class="footer__logo">
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                </div>
+                <p class="website__rights">© Tyledeclouds 2020. All rights reserved</p>
+                <div class="social__icons">
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
