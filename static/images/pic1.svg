@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff8177;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff867a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b721ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#21d4fd;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background cloud shape -->
+  <path d="M600,300 Q650,250 700,275 Q750,300 760,350 Q770,400 730,425 Q690,450 650,430 Q610,410 600,400 Q590,380 580,350 Q570,320 600,300 Z" fill="#f0f0f0" opacity="0.6" />
+  
+  <!-- Main cloud shape -->
+  <path d="M500,350 Q550,300 600,325 Q650,350 660,400 Q670,450 630,475 Q590,500 550,480 Q510,460 500,450 Q490,430 480,400 Q470,370 500,350 Z" fill="#ffffff" />
+  
+  <!-- Smaller cloud in the background -->
+  <path d="M300,200 Q330,170 360,185 Q390,200 395,230 Q400,260 375,275 Q350,290 325,275 Q300,260 295,250 Q290,240 285,225 Q280,210 300,200 Z" fill="#f8f8f8" opacity="0.8" />
+  
+  <!-- Accent cloud shape -->
+  <path d="M400,400 Q430,370 460,385 Q490,400 495,430 Q500,460 475,475 Q450,490 425,475 Q400,460 395,450 Q390,440 385,425 Q380,410 400,400 Z" fill="#f0f0f0" />
+  
+  <!-- Server tower illustration -->
+  <rect x="200" y="320" width="120" height="200" rx="5" ry="5" fill="#333" />
+  <rect x="210" y="330" width="100" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="210" y="360" width="100" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="210" y="390" width="100" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="210" y="420" width="100" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="210" y="450" width="100" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="210" y="480" width="100" height="20" rx="2" ry="2" fill="#555" />
+  
+  <!-- Connection lines -->
+  <path d="M320,380 Q400,350 480,380" stroke="#b721ff" stroke-width="2" fill="none" />
+  <path d="M320,400 Q400,430 480,400" stroke="#ff8177" stroke-width="2" fill="none" />
+  <path d="M320,420 Q400,390 480,420" stroke="#21d4fd" stroke-width="2" fill="none" />
+  
+  <!-- Stylized text: "Cloud" -->
+  <text x="150" y="250" font-family="Arial" font-size="48" font-weight="bold" fill="url(#grad1)">Tyledeclouds</text>
+  
+  <!-- Stylized text: "Solutions" -->
+  <text x="200" y="300" font-family="Arial" font-size="42" font-weight="bold" fill="url(#grad2)">Consulting</text>
+  
+  <!-- Data transfer symbols -->
+  <circle cx="370" cy="380" r="5" fill="#ff8177" />
+  <circle cx="390" cy="400" r="5" fill="#21d4fd" />
+  <circle cx="410" cy="420" r="5" fill="#ff8177" />
+  <circle cx="430" cy="380" r="5" fill="#b721ff" />
+  <circle cx="450" cy="400" r="5" fill="#ff8177" />
+</svg>
