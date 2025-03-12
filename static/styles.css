@@ -806,8 +806,8 @@
   background: #4837ff;
 }
 
-/* Signup Form */
-.signup-section {
+/* Authentication Section Styles */
+.auth-section {
   background: #131313;
   padding: 5rem 2rem;
   color: #fff;
@@ -818,10 +818,52 @@
   min-height: 80vh;
 }
 
-.signup-section h2 {
+.auth-container {
+  background: #1c1c1c;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+}
+
+.auth-tab {
+  flex: 1;
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
+  padding: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.auth-tab.active {
+  background-color: #2a2a2a;
+}
+
+.auth-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+}
+
+.auth-form-container {
+  padding: 2.5rem 2rem;
+}
+
+.auth-form-container h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
   background-color: #ff8177;
   background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
   background-size: 100%;
@@ -830,12 +872,15 @@
   -webkit-text-fill-color: transparent;
 }
 
-.signup-form {
-  background: #1c1c1c;
-  padding: 2rem;
-  border-radius: 8px;
+.auth-form-container p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.auth-form {
   width: 100%;
-  max-width: 400px;
 }
 
 .form-group {
@@ -845,15 +890,22 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border-radius: 4px;
   border: 1px solid #333;
   background: #333;
   color: #fff;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #f77062;
+  outline: none;
 }
 
 .error-message {
@@ -862,20 +914,41 @@
   margin-top: 0.25rem;
 }
 
-.signup-button {
+.auth-button {
   width: 100%;
-  padding: 10px 20px;
-  background: #f77062;
+  padding: 12px;
+  background: linear-gradient(135deg, #f77062 0%, #fe5196 100%);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 600;
   transition: 0.3s ease;
+  margin-top: 1rem;
 }
 
-.signup-button:hover {
-  background: #4837ff;
+.auth-button:hover {
+  background: linear-gradient(135deg, #4837ff 0%, #21d4fd 100%);
+  transform: translateY(-2px);
+}
+
+.auth-message {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.auth-switch {
+  color: #f77062;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.auth-switch:hover {
+  color: #4837ff;
 }
 
 .form-message {
@@ -883,6 +956,97 @@
   padding: 1rem;
   border-radius: 4px;
   text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Service Details Styles */
+.service-details {
+  background-color: #131313;
+  color: #fff;
+  padding: 4rem 2rem;
+}
+
+.service-details__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.service-details h1 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  background-color: #ff8177;
+  background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.service-details__section {
+  margin-bottom: 3rem;
+  background: rgba(26, 26, 26, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid #f77062;
+}
+
+.service-details__section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #f77062;
+}
+
+.service-details__section p {
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.service-details__cta {
+  background: rgba(26, 26, 26, 0.9);
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.service-details__cta h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.service-details__cta p {
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ddd;
+}
+
+.service-details__btn {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .service-details {
+    padding: 3rem 1rem;
+  }
+  
+  .service-details h1 {
+    font-size: 2rem;
+  }
+  
+  .service-details__section {
+    padding: 1.5rem;
+  }
+  
+  .service-details__cta {
+    padding: 2rem 1rem;
+  }
 }
 
 /* Responsive Adjustments */
