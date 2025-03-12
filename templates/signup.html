@@ -35,22 +35,59 @@
         </div>
     </nav>
 
-    <!-- Signup Section -->
-    <div class="signup-section">
-        <h2>Create an Account</h2>
-        <form id="signupForm" class="signup-form">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <div id="emailError" class="error-message" style="display: none;"></div>
+    <!-- Authentication Section -->
+    <div class="auth-section">
+        <div class="auth-container">
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="signupTab">Sign Up</div>
+                <div class="auth-tab" id="loginTab">Login</div>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required minlength="6">
-                <div id="passwordError" class="error-message" style="display: none;"></div>
+            
+            <!-- Signup Form -->
+            <div class="auth-form-container" id="signupFormContainer">
+                <h2>Create an Account</h2>
+                <p>Join Tyledeclouds to access exclusive cloud services content</p>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupEmail">Email:</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                        <div id="signupEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password:</label>
+                        <input type="password" id="signupPassword" name="password" required minlength="6">
+                        <div id="signupPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="auth-button">Sign Up</button>
+                </form>
+                <div class="auth-message">
+                    Already have an account? <span class="auth-switch" id="switchToLogin">Login here</span>
+                </div>
             </div>
-            <button type="submit" class="signup-button">Sign Up</button>
-        </form>
+            
+            <!-- Login Form -->
+            <div class="auth-form-container" id="loginFormContainer" style="display: none;">
+                <h2>Welcome Back</h2>
+                <p>Login to access your Tyledeclouds account</p>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                        <div id="loginEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                        <div id="loginPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="auth-button">Login</button>
+                </form>
+                <div class="auth-message">
+                    Don't have an account? <span class="auth-switch" id="switchToSignup">Sign up here</span>
+                </div>
+            </div>
+        </div>
         <div id="formMessage" class="form-message" style="display: none;"></div>
     </div>
 
