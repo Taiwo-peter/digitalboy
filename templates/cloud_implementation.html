@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyledeclouds Website</title>
+    <title>Cloud Implementation - Tyledeclouds</title>
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     
@@ -39,74 +39,51 @@
     <div class="main">
         <div class="main__container">
             <div class="main__content">
-                <h2>Tyledeclouds</h2>
+                <h2>Cloud Implementation</h2>
                 <h2>Services</h2>
-                <p>Empowering your business with cloud solutions</p>
-                <div class="button main__btn"><a href="{{ url_for('home') }}">Learn more</a></div>
+                <p>Build reliable, scalable, and efficient cloud systems tailored to your business needs</p>
+                <div class="button main__btn"><a href="{{ url_for('services') }}">Back to Services</a></div>
             </div>
             <div class="main__img--container">
-                <img src="{{ url_for('static', filename='images/pic9.svg') }}" alt="Cloud services illustration" id="main__img">
+                <img src="{{ url_for('static', filename='images/cloud_implementation.svg') }}" alt="Cloud Implementation illustration" id="main__img">
             </div>
         </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="services1">
-        <h1>Cloud Services and Deployment You Can Rely On</h1>
-        <div class="services1__container">
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_migration.svg') }}" alt="Cloud Migration">
-                <h2>Cloud Migration</h2>
-                <p>Seamless transition to the cloud with minimal disruption. 
-                Drive efficiency and productivity in your organization.</p>
-                <a href="{{ url_for('cloud_migration') }}">
-                    <button>Get Started</button>
-                </a>
+    <!-- Service Details Section -->
+    <div class="service-details">
+        <div class="service-details__container">
+            <h1>Expert Cloud Implementation Services</h1>
+            
+            <div class="service-details__section">
+                <h2>Infrastructure Design</h2>
+                <p>Our cloud architects design scalable, resilient infrastructure solutions that align with your business requirements. We create detailed architecture diagrams, resource specifications, and implementation plans to ensure a solid foundation for your cloud deployment.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_optimization.svg') }}" alt="Cloud Optimization">
-                <h2>Cloud Optimization</h2>
-                <p>Optimize your cloud infrastructure for maximum performance and 
-                cost-efficiency. Unlock the full potential of cloud technology.</p>
-                <a href="{{ url_for('cloud_optimization') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Migration Planning</h2>
+                <p>We develop comprehensive migration strategies to smoothly transition your applications and data to the cloud. Our approach includes dependency mapping, workload assessment, and phased migration plans to minimize disruption to your business operations.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_security.svg') }}" alt="Cloud Security">
-                <h2>Cloud Security</h2>
-                <p>Protect your cloud infrastructure with advanced security solutions.
-                Ensure data protection and compliance with industry standards.</p>
-                <a href="{{ url_for('cloud_security') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Cloud Deployment</h2>
+                <p>Our expert team handles the technical implementation of your cloud environment, configuring networking, compute resources, storage systems, and security controls according to best practices. We use infrastructure-as-code techniques to ensure consistency and repeatability.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_implementation.svg') }}" alt="Cloud Implementation">
-                <h2>Cloud Implementation</h2>
-                <p>Expert implementation of cloud infrastructure tailored to your needs.
-                Build reliable, scalable, and efficient cloud systems.</p>
-                <a href="{{ url_for('cloud_implementation') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Integration Services</h2>
+                <p>We seamlessly integrate your cloud environment with existing systems, databases, and applications. Our team implements APIs, data pipelines, and authentication systems to create a cohesive ecosystem that supports your business processes.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_consulting.svg') }}" alt="Cloud Consulting">
-                <h2>Cloud Consulting</h2>
-                <p>Strategic cloud consulting to guide your digital transformation.
-                Develop a roadmap for successful cloud adoption and utilization.</p>
-                <a href="{{ url_for('cloud_consulting') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Testing and Validation</h2>
+                <p>We conduct thorough testing of your cloud implementation, including performance testing, security validation, and disaster recovery simulations. Our comprehensive validation process ensures your cloud environment meets all functional and non-functional requirements.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/managed_services.svg') }}" alt="Managed Services">
-                <h2>Managed Services</h2>
-                <p>24/7 management and monitoring of your cloud infrastructure.
-                Focus on your business while we handle your cloud operations.</p>
-                <a href="{{ url_for('managed_services') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__cta">
+                <h2>Ready to implement your cloud solution?</h2>
+                <p>Contact our implementation team today to schedule a consultation and discover how our expert services can help you build a robust, high-performing cloud environment tailored to your business needs.</p>
+                <div class="button service-details__btn"><a href="{{ url_for('contactus') }}">Contact Us</a></div>
             </div>
         </div>
     </div>
