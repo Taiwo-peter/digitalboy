@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "443:443"  # Map port 443 on the host to port 443 in the container
+    volumes:
+      - .:/usr/src/app  # Mount the current directory to the working directory in the container
+    env_file: 
+      - .env  # Load environment variables from the .env file
+    depends_on:
+      - db  # Ensure the database service starts before the app
+
+  db:
+    image: mysql:5.7  # Use the MySQL 5.7 image
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Load from .env file
+      MYSQL_DATABASE: ${MYSQL_DATABASE}  # Load from .env file
+      MYSQL_USER: ${MYSQL_USER}  # Load from .env file
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # Load from .env file
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 in the container
+    volumes:
+      - db_data:/var/lib/mysql  # Persist database data
+
+volumes:
+  db_data:  # Named volume for MySQL data persistence
