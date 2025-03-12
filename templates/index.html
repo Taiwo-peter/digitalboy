@@ -19,7 +19,7 @@
     <!-- Navbar Section -->
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -27,19 +27,19 @@
             </div>
             <ul class="navbar__menu">
                 <li class="navbar__item">
-                    <a href="home.html" class="navbar__links">Home</a>
+                    <a href="{{ url_for('home') }}" class="navbar__links">Home</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="services.html" class="navbar__links">Services</a>
+                    <a href="{{ url_for('services') }}" class="navbar__links">Services</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="contactus.html" class="navbar__links">Contact</a>
+                    <a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="aboutus.html" class="navbar__links">About Us</a>
+                    <a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a>
                 </li>
                 <li class="navbar__btn">
-                    <a href="signup.html" class="button" target="_blank">Sign Up</a>
+                    <a href="{{ url_for('signup') }}" class="button">Sign Up</a>
                 </li>
             </ul>
         </div>
@@ -52,7 +52,7 @@
                 <h1>Tyledeclouds</h1>
                 <h2>Consulting</h2>
                 <p>Empowering your business with cloud solutions</p>
-                <div class="button main__btn"><a href="signup.html">Sign Up Here</a></div>
+                <div class="button main__btn"><a href="{{ url_for('signup') }}">Sign Up Here</a></div>
             </div>
             <div class="main__img--container">
                 <img src="{{ url_for('static', filename='images/pic1.svg') }}" alt="pic" id="main__img">
@@ -65,14 +65,16 @@
         <h1>Explore our range of cloud services designed to meet your needs</h1>
         <div class="services__container">
             <div class="services__card">
-                <h2>We Help With Cloud Services</h2>
-                <p>Cloud Powered Technology</p>
-                <button>Get Started</button>
+                <img src="{{ url_for('static', filename='images/cloud_consulting.svg') }}" alt="Cloud Consulting" style="height: 200px; width: auto; margin-bottom: 20px;">
+                <h2>Strategic Cloud Consulting</h2>
+                <p>Expert guidance for your cloud journey</p>
+                <a href="{{ url_for('services') }}"><button>Learn More</button></a>
             </div>
             <div class="services__card">
-                <h2>We Help Customers With Cloud Best Practices</h2>
-                <p>Take the leap</p>
-                <button>Get Started</button>
+                <img src="{{ url_for('static', filename='images/cloud_implementation.svg') }}" alt="Cloud Implementation" style="height: 200px; width: auto; margin-bottom: 20px;">
+                <h2>Professional Implementation</h2>
+                <p>Building your cloud infrastructure with precision</p>
+                <a href="{{ url_for('services') }}"><button>Learn More</button></a>
             </div>
         </div>
     </div>
@@ -83,18 +85,18 @@
             <div class="footer__link--wrapper">
                 <div class="footer__link--items">
                     <h2>About us</h2>
-                    <a href="/">How it works</a>
-                    <a href="/">Testimonials</a>
-                    <a href="/">Careers</a>
-                    <a href="/">Investment</a>
-                    <a href="/">Terms of Services</a>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
                 </div>
                 <div class="footer__link--items">
                     <h2>Contact Us</h2>
-                    <a href="/">Contact</a>
-                    <a href="/">Support</a>
-                    <a href="/">Destinations</a>
-                    <a href="/">Sponsorships</a>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
                 </div>
             </div>
             <div class="footer__link--wrapper">
@@ -117,7 +119,7 @@
         <div class="social__media">
             <div class="social__media--wrap">
                 <div class="footer__logo">
-                    <a href="index.html" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
                 </div>
                 <p class="website__rights">© Tyledeclouds 2020. All rights reserved</p>
                 <div class="social__icons">
