@@ -19,18 +19,18 @@
     <!-- Navbar Section -->
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
             <ul class="navbar__menu">
-                <li class="navbar__item"><a href="home.html" class="navbar__links">Home</a></li>
-                <li class="navbar__item"><a href="services.html" class="navbar__links">Services</a></li>
-                <li class="navbar__item"><a href="contactus.html" class="navbar__links">Contact</a></li>
-                <li class="navbar__item"><a href="aboutus.html" class="navbar__links">About Us</a></li>
-                <li class="navbar__btn"><a href="signup.html" class="button">Sign Up</a></li>
+                <li class="navbar__item"><a href="{{ url_for('home') }}" class="navbar__links">Home</a></li>
+                <li class="navbar__item"><a href="{{ url_for('services') }}" class="navbar__links">Services</a></li>
+                <li class="navbar__item"><a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a></li>
+                <li class="navbar__item"><a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a></li>
+                <li class="navbar__btn"><a href="{{ url_for('signup') }}" class="button">Sign Up</a></li>
             </ul>
         </div>
     </nav>
@@ -42,7 +42,7 @@
                 <h2>Tyledeclouds</h2>
                 <h2>Services</h2>
                 <p>Empowering your business with cloud solutions</p>
-                <div class="button main__btn"><a href="home.html">Learn more</a></div>
+                <div class="button main__btn"><a href="{{ url_for('home') }}">Learn more</a></div>
             </div>
             <div class="main__img--container">
                 <img src="{{ url_for('static', filename='images/pic9.svg') }}" alt="Cloud services illustration" id="main__img">
@@ -59,7 +59,7 @@
                 <h2>Cloud Migration</h2>
                 <p>Seamless transition to the cloud with minimal disruption. 
                 Drive efficiency and productivity in your organization.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -68,7 +68,7 @@
                 <h2>Cloud Optimization</h2>
                 <p>Optimize your cloud infrastructure for maximum performance and 
                 cost-efficiency. Unlock the full potential of cloud technology.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -77,7 +77,7 @@
                 <h2>Cloud Security</h2>
                 <p>Protect your cloud infrastructure with advanced security solutions.
                 Ensure data protection and compliance with industry standards.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -86,7 +86,7 @@
                 <h2>Cloud Implementation</h2>
                 <p>Expert implementation of cloud infrastructure tailored to your needs.
                 Build reliable, scalable, and efficient cloud systems.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -95,7 +95,7 @@
                 <h2>Cloud Consulting</h2>
                 <p>Strategic cloud consulting to guide your digital transformation.
                 Develop a roadmap for successful cloud adoption and utilization.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -104,7 +104,7 @@
                 <h2>Managed Services</h2>
                 <p>24/7 management and monitoring of your cloud infrastructure.
                 Focus on your business while we handle your cloud operations.</p>
-                <a href="signup.html">
+                <a href="{{ url_for('signup') }}">
                     <button>Get Started</button>
                 </a>
             </div>
@@ -116,19 +116,19 @@
         <div class="footer__links">
             <div class="footer__link--wrapper">
                 <div class="footer__link--items">
-                    <h2>About Us</h2>
-                    <a href="/">How it works</a>
-                    <a href="/">Testimonials</a>
-                    <a href="/">Careers</a>
-                    <a href="/">Investment</a>
-                    <a href="/">Terms of Services</a>
+                    <h2>About us</h2>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
                 </div>
                 <div class="footer__link--items">
                     <h2>Contact Us</h2>
-                    <a href="/">Contact</a>
-                    <a href="/">Support</a>
-                    <a href="/">Destinations</a>
-                    <a href="/">Sponsorships</a>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
                 </div>
             </div>
             <div class="footer__link--wrapper">
@@ -151,7 +151,7 @@
         <div class="social__media">
             <div class="social__media--wrap">
                 <div class="footer__logo">
-                    <a href="index.html" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
                 </div>
                 <p class="website__rights">© Tyledeclouds 2020. All rights reserved</p>
                 <div class="social__icons">
