@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyledeclouds Website</title>
+    <title>Managed Services - Tyledeclouds</title>
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     
@@ -39,74 +39,51 @@
     <div class="main">
         <div class="main__container">
             <div class="main__content">
-                <h2>Tyledeclouds</h2>
+                <h2>Managed Cloud</h2>
                 <h2>Services</h2>
-                <p>Empowering your business with cloud solutions</p>
-                <div class="button main__btn"><a href="{{ url_for('home') }}">Learn more</a></div>
+                <p>24/7 expert management of your cloud infrastructure so you can focus on your business</p>
+                <div class="button main__btn"><a href="{{ url_for('services') }}">Back to Services</a></div>
             </div>
             <div class="main__img--container">
-                <img src="{{ url_for('static', filename='images/pic9.svg') }}" alt="Cloud services illustration" id="main__img">
+                <img src="{{ url_for('static', filename='images/managed_services.svg') }}" alt="Managed Services illustration" id="main__img">
             </div>
         </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="services1">
-        <h1>Cloud Services and Deployment You Can Rely On</h1>
-        <div class="services1__container">
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_migration.svg') }}" alt="Cloud Migration">
-                <h2>Cloud Migration</h2>
-                <p>Seamless transition to the cloud with minimal disruption. 
-                Drive efficiency and productivity in your organization.</p>
-                <a href="{{ url_for('cloud_migration') }}">
-                    <button>Get Started</button>
-                </a>
+    <!-- Service Details Section -->
+    <div class="service-details">
+        <div class="service-details__container">
+            <h1>Comprehensive Managed Cloud Services</h1>
+            
+            <div class="service-details__section">
+                <h2>24/7 Monitoring and Support</h2>
+                <p>Our team of cloud experts provides round-the-clock monitoring and support for your cloud infrastructure. We proactively detect and address issues before they impact your business, with rapid response times and expert troubleshooting capabilities.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_optimization.svg') }}" alt="Cloud Optimization">
-                <h2>Cloud Optimization</h2>
-                <p>Optimize your cloud infrastructure for maximum performance and 
-                cost-efficiency. Unlock the full potential of cloud technology.</p>
-                <a href="{{ url_for('cloud_optimization') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Infrastructure Management</h2>
+                <p>We handle the day-to-day management of your cloud infrastructure, including capacity planning, scaling operations, and resource optimization. Our managed services ensure your environment remains properly configured, updated, and aligned with best practices.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_security.svg') }}" alt="Cloud Security">
-                <h2>Cloud Security</h2>
-                <p>Protect your cloud infrastructure with advanced security solutions.
-                Ensure data protection and compliance with industry standards.</p>
-                <a href="{{ url_for('cloud_security') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Security Operations</h2>
+                <p>Protect your cloud environment with our comprehensive security operations services. We implement continuous security monitoring, vulnerability scanning, patch management, and incident response to safeguard your systems and data from threats.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_implementation.svg') }}" alt="Cloud Implementation">
-                <h2>Cloud Implementation</h2>
-                <p>Expert implementation of cloud infrastructure tailored to your needs.
-                Build reliable, scalable, and efficient cloud systems.</p>
-                <a href="{{ url_for('cloud_implementation') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Backup and Disaster Recovery</h2>
+                <p>Ensure business continuity with our managed backup and disaster recovery services. We implement and maintain robust backup solutions, regular testing protocols, and recovery procedures to protect your critical data and minimize downtime.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_consulting.svg') }}" alt="Cloud Consulting">
-                <h2>Cloud Consulting</h2>
-                <p>Strategic cloud consulting to guide your digital transformation.
-                Develop a roadmap for successful cloud adoption and utilization.</p>
-                <a href="{{ url_for('cloud_consulting') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Performance Optimization</h2>
+                <p>Our managed services include ongoing performance monitoring and optimization to ensure your cloud environment operates at peak efficiency. We identify and resolve performance bottlenecks, implement caching strategies, and fine-tune your infrastructure for optimal user experience.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/managed_services.svg') }}" alt="Managed Services">
-                <h2>Managed Services</h2>
-                <p>24/7 management and monitoring of your cloud infrastructure.
-                Focus on your business while we handle your cloud operations.</p>
-                <a href="{{ url_for('managed_services') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__cta">
+                <h2>Ready to offload cloud management to the experts?</h2>
+                <p>Contact our team today to schedule a consultation and discover how our managed cloud services can provide peace of mind while reducing operational overhead for your organization.</p>
+                <div class="button service-details__btn"><a href="{{ url_for('contactus') }}">Contact Us</a></div>
             </div>
         </div>
     </div>

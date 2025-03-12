@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyledeclouds Website</title>
+    <title>Cloud Security - Tyledeclouds</title>
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     
@@ -39,74 +39,51 @@
     <div class="main">
         <div class="main__container">
             <div class="main__content">
-                <h2>Tyledeclouds</h2>
+                <h2>Cloud Security</h2>
                 <h2>Services</h2>
-                <p>Empowering your business with cloud solutions</p>
-                <div class="button main__btn"><a href="{{ url_for('home') }}">Learn more</a></div>
+                <p>Protect your data and infrastructure with enterprise-grade cloud security solutions</p>
+                <div class="button main__btn"><a href="{{ url_for('services') }}">Back to Services</a></div>
             </div>
             <div class="main__img--container">
-                <img src="{{ url_for('static', filename='images/pic9.svg') }}" alt="Cloud services illustration" id="main__img">
+                <img src="{{ url_for('static', filename='images/cloud_security.svg') }}" alt="Cloud Security illustration" id="main__img">
             </div>
         </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="services1">
-        <h1>Cloud Services and Deployment You Can Rely On</h1>
-        <div class="services1__container">
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_migration.svg') }}" alt="Cloud Migration">
-                <h2>Cloud Migration</h2>
-                <p>Seamless transition to the cloud with minimal disruption. 
-                Drive efficiency and productivity in your organization.</p>
-                <a href="{{ url_for('cloud_migration') }}">
-                    <button>Get Started</button>
-                </a>
+    <!-- Service Details Section -->
+    <div class="service-details">
+        <div class="service-details__container">
+            <h1>Comprehensive Cloud Security Solutions</h1>
+            
+            <div class="service-details__section">
+                <h2>Security Assessment</h2>
+                <p>Our security experts conduct thorough assessments of your cloud environment to identify vulnerabilities and security gaps. We evaluate your configuration, access controls, encryption practices, and compliance with industry standards to establish a security baseline.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_optimization.svg') }}" alt="Cloud Optimization">
-                <h2>Cloud Optimization</h2>
-                <p>Optimize your cloud infrastructure for maximum performance and 
-                cost-efficiency. Unlock the full potential of cloud technology.</p>
-                <a href="{{ url_for('cloud_optimization') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Identity and Access Management</h2>
+                <p>We implement robust identity and access management solutions to ensure only authorized users have access to your cloud resources. Our approach includes multi-factor authentication, role-based access control, and privileged access management to protect sensitive data and systems.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_security.svg') }}" alt="Cloud Security">
-                <h2>Cloud Security</h2>
-                <p>Protect your cloud infrastructure with advanced security solutions.
-                Ensure data protection and compliance with industry standards.</p>
-                <a href="{{ url_for('cloud_security') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Data Protection</h2>
+                <p>Protect your valuable data with our comprehensive data security solutions. We implement encryption for data at rest and in transit, data loss prevention policies, and secure backup strategies to safeguard your information against unauthorized access and data breaches.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_implementation.svg') }}" alt="Cloud Implementation">
-                <h2>Cloud Implementation</h2>
-                <p>Expert implementation of cloud infrastructure tailored to your needs.
-                Build reliable, scalable, and efficient cloud systems.</p>
-                <a href="{{ url_for('cloud_implementation') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Threat Detection and Response</h2>
+                <p>Our advanced threat detection systems continuously monitor your cloud environment for suspicious activities and potential security incidents. We implement automated response mechanisms and incident management protocols to quickly address and mitigate security threats.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/cloud_consulting.svg') }}" alt="Cloud Consulting">
-                <h2>Cloud Consulting</h2>
-                <p>Strategic cloud consulting to guide your digital transformation.
-                Develop a roadmap for successful cloud adoption and utilization.</p>
-                <a href="{{ url_for('cloud_consulting') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__section">
+                <h2>Compliance Management</h2>
+                <p>Stay compliant with industry regulations and standards with our compliance management services. We help you meet requirements for GDPR, HIPAA, PCI DSS, and other regulatory frameworks, providing documentation and controls to demonstrate compliance during audits.</p>
             </div>
-            <div class="services1__card">
-                <img src="{{ url_for('static', filename='images/managed_services.svg') }}" alt="Managed Services">
-                <h2>Managed Services</h2>
-                <p>24/7 management and monitoring of your cloud infrastructure.
-                Focus on your business while we handle your cloud operations.</p>
-                <a href="{{ url_for('managed_services') }}">
-                    <button>Get Started</button>
-                </a>
+            
+            <div class="service-details__cta">
+                <h2>Ready to secure your cloud environment?</h2>
+                <p>Contact our security experts today to schedule a consultation and discover how our cloud security services can protect your valuable data and infrastructure from evolving cyber threats.</p>
+                <div class="button service-details__btn"><a href="{{ url_for('contactus') }}">Contact Us</a></div>
             </div>
         </div>
     </div>
