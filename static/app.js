@@ -182,6 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
+                        firstName,
+                        lastName,
+                        username,
                         email, 
                         password 
                     }),
@@ -190,11 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (response.ok) {
-                    formMessage.textContent = result.message;
+                    formMessage.textContent = result.message + ' Redirecting...';
                     formMessage.style.backgroundColor = '#1e392a';
                     formMessage.style.color = '#7affa7';
                     formMessage.style.display = 'block';
                     signupForm.reset(); // Clear the form
+                    
+                    // Redirect to services page after successful signup
+                    setTimeout(() => {
+                        window.location.href = '/services.html';
+                    }, 1500);
                 } else {
                     formMessage.textContent = result.error || 'An error occurred.';
                     formMessage.style.backgroundColor = '#391e1e';
