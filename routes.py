@@ -80,12 +80,15 @@ def register_routes(app):
         """Handle user registration"""
         try:
             data = request.json
+            first_name = data.get('firstName')
+            last_name = data.get('lastName')
+            username = data.get('username')
             email = data.get('email')
             password = data.get('password')
             
             # Validate input
-            if not email or not password:
-                return jsonify({"error": "Email and password are required."}), 400
+            if not first_name or not last_name or not username or not email or not password:
+                return jsonify({"error": "All fields are required."}), 400
                 
             # Validate email format
             email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
@@ -98,12 +101,21 @@ def register_routes(app):
                 return jsonify({"error": "Password must be at least 6 characters long."}), 400
                 
             # Check if user already exists
-            existing_user = User.query.filter_by(email=email).first()
-            if existing_user:
+            existing_email = User.query.filter_by(email=email).first()
+            if existing_email:
                 return jsonify({"error": "Email is already registered."}), 400
                 
+            existing_username = User.query.filter_by(username=username).first()
+            if existing_username:
+                return jsonify({"error": "Username is already taken."}), 400
+                
             # Create new user
-            new_user = User(email=email)
+            new_user = User(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                email=email
+            )
             new_user.set_password(password)
             
             # Save user to database
@@ -113,6 +125,7 @@ def register_routes(app):
             # Set the user session
             session['user_id'] = new_user.id
             session['email'] = new_user.email
+            session['username'] = new_user.username
             
             return jsonify({"message": "Sign-up successful! Welcome to Tyledeclouds."}), 201
             

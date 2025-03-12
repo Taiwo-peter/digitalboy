@@ -85,16 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (signupTab) {
         signupTab.addEventListener('click', () => toggleAuthForms(true));
     }
-    
+
     if (loginTab) {
         loginTab.addEventListener('click', () => toggleAuthForms(false));
     }
-    
+
     // Link click handlers
     if (switchToLogin) {
         switchToLogin.addEventListener('click', () => toggleAuthForms(false));
     }
-    
+
     if (switchToSignup) {
         switchToSignup.addEventListener('click', () => toggleAuthForms(true));
     }
@@ -105,36 +105,74 @@ document.addEventListener('DOMContentLoaded', () => {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            const firstName = document.getElementById('signupFirstName').value;
+            const lastName = document.getElementById('signupLastName').value;
+            const username = document.getElementById('signupUsername').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
             // Reset previous error messages
+            document.getElementById('signupFirstNameError').style.display = 'none';
+            document.getElementById('signupLastNameError').style.display = 'none';
+            document.getElementById('signupUsernameError').style.display = 'none';
             document.getElementById('signupEmailError').style.display = 'none';
             document.getElementById('signupPasswordError').style.display = 'none';
+            document.getElementById('signupConfirmPasswordError').style.display = 'none';
             formMessage.style.display = 'none';
 
             // Basic validation
             let hasError = false;
-            
-            if (!email) {
-                const emailError = document.getElementById('signupEmailError');
-                emailError.textContent = 'Email is required';
-                emailError.style.display = 'block';
+
+            if (!firstName) {
+                const error = document.getElementById('signupFirstNameError');
+                error.textContent = 'First Name is required';
+                error.style.display = 'block';
                 hasError = true;
             }
-            
+            if (!lastName) {
+                const error = document.getElementById('signupLastNameError');
+                error.textContent = 'Last Name is required';
+                error.style.display = 'block';
+                hasError = true;
+            }
+            if (!username) {
+                const error = document.getElementById('signupUsernameError');
+                error.textContent = 'Username is required';
+                error.style.display = 'block';
+                hasError = true;
+            }
+            if (!email) {
+                const error = document.getElementById('signupEmailError');
+                error.textContent = 'Email is required';
+                error.style.display = 'block';
+                hasError = true;
+            }
+
             if (!password) {
-                const passwordError = document.getElementById('signupPasswordError');
-                passwordError.textContent = 'Password is required';
-                passwordError.style.display = 'block';
+                const error = document.getElementById('signupPasswordError');
+                error.textContent = 'Password is required';
+                error.style.display = 'block';
                 hasError = true;
             } else if (password.length < 6) {
-                const passwordError = document.getElementById('signupPasswordError');
-                passwordError.textContent = 'Password must be at least 6 characters';
-                passwordError.style.display = 'block';
+                const error = document.getElementById('signupPasswordError');
+                error.textContent = 'Password must be at least 6 characters';
+                error.style.display = 'block';
                 hasError = true;
             }
-            
+
+            if (!confirmPassword) {
+                const error = document.getElementById('signupConfirmPasswordError');
+                error.textContent = 'Confirm Password is required';
+                error.style.display = 'block';
+                hasError = true;
+            } else if (password !== confirmPassword) {
+                const error = document.getElementById('signupConfirmPasswordError');
+                error.textContent = 'Passwords do not match';
+                error.style.display = 'block';
+                hasError = true;
+            }
+
             if (hasError) return;
 
             try {
@@ -143,7 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email, password }),
+                    body: JSON.stringify({ 
+                        firstName, 
+                        lastName, 
+                        username, 
+                        email, 
+                        password 
+                    }),
                 });
 
                 const result = await response.json();
@@ -168,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Handle login form submission
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
@@ -185,21 +229,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Basic validation
             let hasError = false;
-            
+
             if (!email) {
                 const emailError = document.getElementById('loginEmailError');
                 emailError.textContent = 'Email is required';
                 emailError.style.display = 'block';
                 hasError = true;
             }
-            
+
             if (!password) {
                 const passwordError = document.getElementById('loginPasswordError');
                 passwordError.textContent = 'Password is required';
                 passwordError.style.display = 'block';
                 hasError = true;
             }
-            
+
             if (hasError) return;
 
             try {
@@ -218,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     formMessage.style.backgroundColor = '#1e392a';
                     formMessage.style.color = '#7affa7';
                     formMessage.style.display = 'block';
-                    
+
                     // Redirect to home page after successful login
                     setTimeout(() => {
                         window.location.href = '/services.html';

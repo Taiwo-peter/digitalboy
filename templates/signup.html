@@ -50,6 +50,21 @@
                 <p>Join Tyledeclouds to access exclusive cloud services content</p>
                 <form id="signupForm" class="auth-form">
                     <div class="form-group">
+                        <label for="signupFirstName">First Name:</label>
+                        <input type="text" id="signupFirstName" name="firstName" required>
+                        <div id="signupFirstNameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLastName">Last Name:</label>
+                        <input type="text" id="signupLastName" name="lastName" required>
+                        <div id="signupLastNameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupUsername">Username:</label>
+                        <input type="text" id="signupUsername" name="username" required>
+                        <div id="signupUsernameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
                         <label for="signupEmail">Email:</label>
                         <input type="email" id="signupEmail" name="email" required>
                         <div id="signupEmailError" class="error-message" style="display: none;"></div>
@@ -58,6 +73,11 @@
                         <label for="signupPassword">Password:</label>
                         <input type="password" id="signupPassword" name="password" required minlength="6">
                         <div id="signupPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password:</label>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required minlength="6">
+                        <div id="signupConfirmPasswordError" class="error-message" style="display: none;"></div>
                     </div>
                     <button type="submit" class="auth-button">Sign Up</button>
                 </form>
