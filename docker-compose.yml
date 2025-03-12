@@ -1,0 +1,29 @@
+
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./instance:/app/instance
+    environment:
+      - SESSION_SECRET=tyledeclouds_default_secret
+      - DATABASE_URL=sqlite:///tyledeclouds.db
+    restart: always
+
+  # Uncomment below if you want to use PostgreSQL instead of SQLite
+  # db:
+  #   image: postgres:14-alpine
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=password
+  #     - POSTGRES_USER=tyledeclouds
+  #     - POSTGRES_DB=tyledeclouds
+  #   restart: always
+
+# Uncomment if using PostgreSQL
+# volumes:
+#   postgres_data:
