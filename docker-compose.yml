@@ -8,20 +8,23 @@ services:
       - "5000:5000"
     volumes:
       - ./instance:/app/instance
+    env_file:
+      - .env
     environment:
-      - SESSION_SECRET=tyledeclouds_default_secret
-      - DATABASE_URL=sqlite:///tyledeclouds.db
+      - PYTHONUNBUFFERED=1
     restart: always
 
-  # Uncomment below if you want to use PostgreSQL instead of SQLite
+  # Uncomment below to use PostgreSQL instead of SQLite
   # db:
   #   image: postgres:14-alpine
   #   volumes:
   #     - postgres_data:/var/lib/postgresql/data
+  #   env_file:
+  #     - .env
   #   environment:
-  #     - POSTGRES_PASSWORD=password
-  #     - POSTGRES_USER=tyledeclouds
-  #     - POSTGRES_DB=tyledeclouds
+  #     - POSTGRES_USER=${DB_USER}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #     - POSTGRES_DB=${DB_NAME}
   #   restart: always
 
 # Uncomment if using PostgreSQL
