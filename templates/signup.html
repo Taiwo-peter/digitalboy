@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyledeclouds Website</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="{{ url_for('home') }}" class="navbar__links">Home</a></li>
+                <li class="navbar__item"><a href="{{ url_for('services') }}" class="navbar__links">Services</a></li>
+                <li class="navbar__item"><a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a></li>
+                <li class="navbar__item"><a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a></li>
+                <li class="navbar__btn"><a href="{{ url_for('signup') }}" class="button">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Authentication Section -->
+    <div class="auth-section">
+        <div class="auth-container">
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="signupTab">Sign Up</div>
+                <div class="auth-tab" id="loginTab">Login</div>
+            </div>
+            
+            <!-- Signup Form -->
+            <div class="auth-form-container" id="signupFormContainer">
+                <h2>Create an Account</h2>
+                <p>Join Tyledeclouds to access exclusive cloud services content</p>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupFirstName">First Name:</label>
+                        <input type="text" id="signupFirstName" name="firstName" required>
+                        <div id="signupFirstNameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupLastName">Last Name:</label>
+                        <input type="text" id="signupLastName" name="lastName" required>
+                        <div id="signupLastNameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupUsername">Username:</label>
+                        <input type="text" id="signupUsername" name="username" required>
+                        <div id="signupUsernameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email:</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                        <div id="signupEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password:</label>
+                        <input type="password" id="signupPassword" name="password" required minlength="6">
+                        <div id="signupPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password:</label>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required minlength="6">
+                        <div id="signupConfirmPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="auth-button">Sign Up</button>
+                </form>
+                <div class="auth-message">
+                    Already have an account? <span class="auth-switch" id="switchToLogin">Login here</span>
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form-container" id="loginFormContainer" style="display: none;">
+                <h2>Welcome Back</h2>
+                <p>Login to access your Tyledeclouds account</p>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                        <div id="loginEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                        <div id="loginPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="auth-button">Login</button>
+                </form>
+                <div class="auth-message">
+                    Don't have an account? <span class="auth-switch" id="switchToSignup">Sign up here</span>
+                </div>
+            </div>
+        </div>
+        <div id="formMessage" class="form-message" style="display: none;"></div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer__container">
+        <div class="footer__links">
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>About us</h2>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Contact Us</h2>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
+                </div>
+            </div>
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>Videos</h2>
+                    <a href="/">Submit Videos</a>
+                    <a href="/">Ambassadors</a>
+                    <a href="/">Agency</a>
+                    <a href="/">Influencer</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Social Media</h2>
+                    <a href="/">Instagram</a>
+                    <a href="/">YouTube</a>
+                    <a href="/">Facebook</a>
+                    <a href="/">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="social__media">
+            <div class="social__media--wrap">
+                <div class="footer__logo">
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                </div>
+                <p class="website__rights">&copy; Tyledeclouds 2020. All rights reserved</p>
+                <div class="social__icons">
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

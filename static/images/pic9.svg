@@ -1,0 +1,25 @@
+<svg width="500" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main Cloud -->
+  <path d="M280,180 Q300,110 360,160 Q430,120 400,200 Q470,230 400,260 Q420,310 350,290 Q320,340 270,300 Q200,320 220,260 Q150,240 200,190 Q170,130 240,150 Q250,110 280,180" fill="#4dabf7" stroke="#3b8ec2" stroke-width="5"/>
+
+  <!-- Inner Highlights -->
+  <ellipse cx="240" cy="200" rx="15" ry="10" fill="#62b5fa" transform="rotate(-20, 240, 200)"/>
+  <ellipse cx="320" cy="220" rx="25" ry="15" fill="#62b5fa" transform="rotate(15, 320, 220)"/>
+
+  <!-- Server Racks -->
+  <rect x="270" y="210" width="60" height="40" rx="5" fill="#264968" stroke="#233142" stroke-width="2"/>
+  <rect x="275" y="215" width="50" height="5" rx="2" fill="#5ca0d3"/>
+  <rect x="275" y="225" width="50" height="5" rx="2" fill="#5ca0d3"/>
+  <rect x="275" y="235" width="50" height="5" rx="2" fill="#5ca0d3"/>
+
+  <!-- Data Connections -->
+  <path d="M150,240 C180,220 200,260 230,240" stroke="#3b8ec2" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+  <path d="M420,220 C390,200 380,260 340,250" stroke="#3b8ec2" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+  <!-- Small Device Icons -->
+  <rect x="160" y="260" width="20" height="30" rx="2" fill="#264968"/>
+  <rect x="162" y="262" width="16" height="20" rx="1" fill="#5ca0d3"/>
+
+  <rect x="400" y="270" width="30" height="20" rx="2" fill="#264968"/>
+  <rect x="405" y="275" width="20" height="10" rx="1" fill="#5ca0d3"/>
+</svg>

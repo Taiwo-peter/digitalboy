@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managed Services - Tyledeclouds</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="{{ url_for('home') }}" class="navbar__links">Home</a></li>
+                <li class="navbar__item"><a href="{{ url_for('services') }}" class="navbar__links">Services</a></li>
+                <li class="navbar__item"><a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a></li>
+                <li class="navbar__item"><a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a></li>
+                <li class="navbar__btn"><a href="{{ url_for('signup') }}" class="button">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main__container">
+            <div class="main__content">
+                <h2>Managed Cloud</h2>
+                <h2>Services</h2>
+                <p>24/7 expert management of your cloud infrastructure so you can focus on your business</p>
+                <div class="button main__btn"><a href="{{ url_for('services') }}">Back to Services</a></div>
+            </div>
+            <div class="main__img--container">
+                <img src="{{ url_for('static', filename='images/managed_services.svg') }}" alt="Managed Services illustration" id="main__img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Details Section -->
+    <div class="service-details">
+        <div class="service-details__container">
+            <h1>Comprehensive Managed Cloud Services</h1>
+            
+            <div class="service-details__section">
+                <h2>24/7 Monitoring and Support</h2>
+                <p>Our team of cloud experts provides round-the-clock monitoring and support for your cloud infrastructure. We proactively detect and address issues before they impact your business, with rapid response times and expert troubleshooting capabilities.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Infrastructure Management</h2>
+                <p>We handle the day-to-day management of your cloud infrastructure, including capacity planning, scaling operations, and resource optimization. Our managed services ensure your environment remains properly configured, updated, and aligned with best practices.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Security Operations</h2>
+                <p>Protect your cloud environment with our comprehensive security operations services. We implement continuous security monitoring, vulnerability scanning, patch management, and incident response to safeguard your systems and data from threats.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Backup and Disaster Recovery</h2>
+                <p>Ensure business continuity with our managed backup and disaster recovery services. We implement and maintain robust backup solutions, regular testing protocols, and recovery procedures to protect your critical data and minimize downtime.</p>
+            </div>
+            
+            <div class="service-details__section">
+                <h2>Performance Optimization</h2>
+                <p>Our managed services include ongoing performance monitoring and optimization to ensure your cloud environment operates at peak efficiency. We identify and resolve performance bottlenecks, implement caching strategies, and fine-tune your infrastructure for optimal user experience.</p>
+            </div>
+            
+            <div class="service-details__cta">
+                <h2>Ready to offload cloud management to the experts?</h2>
+                <p>Contact our team today to schedule a consultation and discover how our managed cloud services can provide peace of mind while reducing operational overhead for your organization.</p>
+                <div class="button service-details__btn"><a href="{{ url_for('contactus') }}">Contact Us</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer__container">
+        <div class="footer__links">
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>About us</h2>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Contact Us</h2>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
+                </div>
+            </div>
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>Videos</h2>
+                    <a href="/">Submit Videos</a>
+                    <a href="/">Ambassadors</a>
+                    <a href="/">Agency</a>
+                    <a href="/">Influencer</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Social Media</h2>
+                    <a href="/">Instagram</a>
+                    <a href="/">YouTube</a>
+                    <a href="/">Facebook</a>
+                    <a href="/">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="social__media">
+            <div class="social__media--wrap">
+                <div class="footer__logo">
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                </div>
+                <p class="website__rights">© Tyledeclouds 2020. All rights reserved</p>
+                <div class="social__icons">
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
