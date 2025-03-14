@@ -1,30 +1,21 @@
+# Use the official Python image
+FROM python:3.9-slim
 
-FROM python:3.11-slim
-
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy project files
-COPY pyproject.toml .
-COPY main.py .
-COPY app.py .
-COPY routes.py .
-COPY models.py .
-COPY templates/ ./templates/
-COPY static/ ./static/
+# Copy the current directory contents into the container
+COPY . .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir gunicorn flask flask-sqlalchemy flask-login werkzeug psycopg2-binary sqlalchemy email-validator flask-wtf python-dotenv
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Environment variables (will be overridden by docker-compose)
-ENV PYTHONUNBUFFERED=1
-ENV SESSION_SECRET=tyledeclouds_default_secret
-ENV DATABASE_URL=sqlite:///instance/tyledeclouds.db
+# Set environment variables (if needed)
+ENV SESSION_SECRET="tyledeclouds_default_secret"
+ENV DATABASE_URL="sqlite:///tyledeclouds.db"
 
-# Create instance directory for SQLite
-RUN mkdir -p instance
-
-# Expose port
+# Expose the port Flask runs on
 EXPOSE 5000
 
-# Start the application with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "main:app"]
+# Run the Flask application
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]

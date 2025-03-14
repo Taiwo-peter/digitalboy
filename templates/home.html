@@ -19,18 +19,28 @@
     <!-- Navbar Section -->
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
             <ul class="navbar__menu">
-                <li class="navbar__item"><a href="home.html" class="navbar__links">Home</a></li>
-                <li class="navbar__item"><a href="services.html" class="navbar__links">Services</a></li>
-                <li class="navbar__item"><a href="contactus.html" class="navbar__links">Contact</a></li>
-                <li class="navbar__item"><a href="aboutus.html" class="navbar__links">About Us</a></li>
-                <li class="navbar__btn"><a href="signup.html" class="button">Sign Up</a></li>
+                <li class="navbar__item">
+                    <a href="{{ url_for('home') }}" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="{{ url_for('services') }}" class="navbar__links">Services</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="{{ url_for('signup') }}" class="button">Sign Up</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -83,10 +93,10 @@
                 concentrate on your core business activities. We ensure your cloud infrastructure runs 
                 smoothly and securely, giving you peace of mind.</p>
             </li>
+            <p>By choosing Tyledeclouds Consulting, you're not just adopting cloud technology; you're partnering 
+                with experts committed to your success. Let us help you embark on your cloud journey with 
+                confidence!</p>
         </ul>
-        <p>By choosing Tyledeclouds Consulting, you're not just adopting cloud technology; you're partnering 
-        with experts committed to your success. Let us help you embark on your cloud journey with 
-        confidence!</p>
     </div>
 
     <!-- Footer Section -->
@@ -129,7 +139,7 @@
         <div class="social__media">
             <div class="social__media--wrap">
                 <div class="footer__logo">
-                    <a href="index.html" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
                 </div>
                 <p class="website__rights">© Tyledeclouds 2020. All rights reserved</p>
                 <div class="social__icons">

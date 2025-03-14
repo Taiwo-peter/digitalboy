@@ -3,6 +3,7 @@ import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
+from flask_migrate import Migrate  # Import Flask-Migrate
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -31,13 +32,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Initialize the app with the database extension
 db.init_app(app)
 
-# Import routes after app initialization to avoid circular imports
+# Initialize Flask-Migrate
+migrate = Migrate(app, db)
+
+# Import routes and models after app initialization to avoid circular imports
 with app.app_context():
-    # Import models to ensure they're registered with SQLAlchemy
-    from models import User, ContactMessage
+    from models import User, ContactMessage  # Ensure models are registered with SQLAlchemy
     
-    # Create database tables
-    db.create_all()
+    # Optionally create database tables.
+    # If you are using migrations, you can remove or comment this out.
+    # db.create_all()
     
     # Import and register routes
     from routes import register_routes
