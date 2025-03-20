@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Set environment variables (if needed)
 ENV SESSION_SECRET="tyledeclouds_default_secret"
-ENV DATABASE_URL="sqlite:///tyledeclouds.db"
+ENV DATABASE_URL=""
 
 # Expose the port Flask runs on
 EXPOSE 5000
