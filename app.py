@@ -226,7 +226,7 @@ def payment():
     if not session.get('logged_in'):
         return redirect(url_for('signup'))
     
-    return render_template('payment.html', 
+    return render_template('payment_new.html', 
                           stripe_key=stripe_publishable_key,
                           services=service_prices)
 
