@@ -1,3 +1,4 @@
+
 import json
 import logging
 import stripe
@@ -183,6 +184,19 @@ def register_routes(app):
             # Validate input
             if not name or not email or not message:
                 return jsonify({"error": "All fields are required."}), 400
+            
+            # Save contact message to database
+            new_message = ContactMessage(name=name, email=email, message=message)
+            db.session.add(new_message)
+            db.session.commit()
+            
+            logging.info(f"New contact form submission: Name: {name}, Email: {email}")
+            return jsonify({"message": "Your message has been received. We will get back to you soon!"}), 200
+            
+        except Exception as e:
+            logging.error(f"Error saving contact message: {str(e)}")
+            db.session.rollback()
+            return jsonify({"error": "Internal server error. Please try again later."}), 500
 
     @app.route('/payment')
     @login_required
@@ -211,20 +225,6 @@ def register_routes(app):
     @login_required
     def payment_success():
         return render_template('payment_success.html')
-
-            
-            # Save contact message to database
-            new_message = ContactMessage(name=name, email=email, message=message)
-            db.session.add(new_message)
-            db.session.commit()
-            
-            logging.info(f"New contact form submission: Name: {name}, Email: {email}")
-            return jsonify({"message": "Your message has been received. We will get back to you soon!"}), 200
-            
-        except Exception as e:
-            logging.error(f"Error saving contact message: {str(e)}")
-            db.session.rollback()
-            return jsonify({"error": "Internal server error. Please try again later."}), 500
     
     @app.route('/api/user/status')
     def api_user_status():
