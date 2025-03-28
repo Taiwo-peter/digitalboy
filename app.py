@@ -65,11 +65,11 @@ def aboutus():
 
 @app.route('/contactus.html')
 def contactus():
-    return render_template('contactus.html')
+    return render_template('contactus_new.html')
 
 @app.route('/signup.html')
 def signup():
-    return render_template('signup.html')
+    return render_template('signup_new.html')
 
 # Service detail pages - require authentication
 @app.route('/cloud_migration.html')
