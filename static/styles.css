@@ -223,7 +223,7 @@
   height: 90vh;
   background-color: #141414;
   z-index: 1;
-  width: 100;
+  width: 100%;
   max-width: 1300px;
   padding: 0 50px;
 }
@@ -252,9 +252,20 @@
 
 .main__content p {
   margin-top: 1rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
+  line-height: 1.4;
+  max-width: 90%;
+}
+
+.hero-tagline {
+  margin-top: 1rem;
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  max-width: 100%;
 }
 
 .main__btn {
@@ -305,6 +316,13 @@
 #main__img {
   height: 80%;
   width: 80%;
+  max-width: 400px;
+}
+
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Mobile Responsive */
@@ -537,6 +555,25 @@
   left: 30px;
   font-size: 1rem;
   padding-right: 20px;
+}
+
+.service-icon {
+  height: 200px;
+  width: auto;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .service-icon {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .service-icon {
+    height: 120px;
+  }
 }
 
 .payment-container {
