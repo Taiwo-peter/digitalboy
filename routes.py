@@ -1,5 +1,6 @@
 import json
 import logging
+import stripe
 from flask import render_template, request, jsonify, redirect, url_for, session
 from app import db
 from models import User, ContactMessage
@@ -182,6 +183,35 @@ def register_routes(app):
             # Validate input
             if not name or not email or not message:
                 return jsonify({"error": "All fields are required."}), 400
+
+    @app.route('/payment')
+    @login_required
+    def payment():
+        return render_template('payment.html')
+
+    @app.route('/api/process-payment', methods=['POST'])
+    @login_required
+    def process_payment():
+        try:
+            stripe.api_key = app.config['STRIPE_SECRET_KEY']
+            token = request.json.get('token')
+            
+            charge = stripe.Charge.create(
+                amount=2000,  # Amount in cents
+                currency='usd',
+                description='Cloud Service Payment',
+                source=token,
+            )
+            
+            return jsonify({'success': True})
+        except stripe.error.StripeError as e:
+            return jsonify({'success': False, 'error': str(e)})
+
+    @app.route('/payment-success')
+    @login_required
+    def payment_success():
+        return render_template('payment_success.html')
+
             
             # Save contact message to database
             new_message = ContactMessage(name=name, email=email, message=message)
