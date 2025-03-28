@@ -220,6 +220,7 @@ def api_user_status():
 
 # Payment routes
 @app.route('/payment.html')
+@app.route('/payment')
 def payment():
     """Display payment page with service options"""
     if not session.get('logged_in'):
@@ -295,6 +296,7 @@ def payment_success():
         return jsonify({"error": "Failed to record payment. Please contact support."}), 500
 
 @app.route('/payment-success.html')
+@app.route('/payment-success')
 def payment_success_page():
     """Display payment success page"""
     if not session.get('logged_in'):
