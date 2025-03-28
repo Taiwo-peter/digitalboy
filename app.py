@@ -122,6 +122,7 @@ def services():
     return render_template('services.html', versioned_static=versioned_static)
 
 @app.route('/aboutus.html')
+@app.route('/aboutus')
 def aboutus():
     return render_template_cached('aboutus.html', versioned_static=versioned_static)
 

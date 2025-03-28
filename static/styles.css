@@ -307,18 +307,6 @@
   width: 80%;
 }
 
-#main__img--mobile {
-  display: none;
-}
-
-.desktop-img {
-  display: block;
-}
-
-.mobile-img {
-  display: none;
-}
-
 /* Mobile Responsive */
 @media screen and (max-width: 768px) {
   .main__container {
@@ -365,20 +353,7 @@
     max-width: 300px;
   }
   
-  .desktop-img {
-    display: none;
-  }
-  
-  .mobile-img {
-    display: block;
-  }
-  
-  #main__img--mobile {
-    display: block;
-    height: auto;
-    width: 90%;
-    max-width: 300px;
-  }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -401,10 +376,7 @@
     margin: 2.5rem 0;
   }
   
-  #main__img--mobile {
-    width: 100%;
-    max-width: 250px;
-  }
+
 }
 
 /* Hero Section Css Home */
