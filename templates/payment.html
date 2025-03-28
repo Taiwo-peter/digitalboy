@@ -1,20 +1,366 @@
-
-{% extends "base.html" %}
-{% block content %}
-<div class="payment-container">
-    <h1>Payment Details</h1>
-    <form id="payment-form">
-        <div class="form-group">
-            <label for="card-element">Credit or debit card</label>
-            <div id="card-element"></div>
-            <div id="card-errors" role="alert"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyledeclouds - Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .payment-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .service-options {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .service-card {
+            width: 30%;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card.selected {
+            border-color: #3498db;
+            background-color: #f0f7ff;
+        }
+        
+        .service-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .service-price {
+            font-size: 24px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .service-desc {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .payment-form {
+            margin-top: 30px;
+        }
+        
+        #card-element {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        #card-errors {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .payment-button {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .payment-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .payment-button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .payment-success {
+            text-align: center;
+            display: none;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .service-card {
+                width: 100%;
+            }
+            
+            .payment-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Tyledeclouds</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contactus') }}">Contact</a></li>
+                    <li><a href="{{ url_for('signup') }}" id="authLink">Sign Up / Login</a></li>
+                </ul>
+            </nav>
         </div>
-        <button type="submit" class="payment-button">Pay Now</button>
-    </form>
-</div>
-{% endblock %}
+    </header>
 
-{% block scripts %}
-<script src="https://js.stripe.com/v3/"></script>
-<script src="{{ url_for('static', filename='js/payment.js') }}"></script>
-{% endblock %}
+    <div class="container payment-container">
+        <h2 class="payment-title">Select a Service Package</h2>
+        
+        <div class="service-options">
+            <div class="service-card" data-service-id="basic">
+                <div class="service-name">Basic Cloud Package</div>
+                <div class="service-price">$9.99</div>
+                <div class="service-desc">Basic cloud consulting services package</div>
+                <button class="select-service-btn">Select</button>
+            </div>
+            
+            <div class="service-card" data-service-id="standard">
+                <div class="service-name">Standard Cloud Package</div>
+                <div class="service-price">$29.99</div>
+                <div class="service-desc">Standard cloud consulting services with implementation support</div>
+                <button class="select-service-btn">Select</button>
+            </div>
+            
+            <div class="service-card" data-service-id="premium">
+                <div class="service-name">Premium Cloud Package</div>
+                <div class="service-price">$49.99</div>
+                <div class="service-desc">Premium cloud consulting with full implementation and ongoing support</div>
+                <button class="select-service-btn">Select</button>
+            </div>
+        </div>
+        
+        <div class="payment-form">
+            <h3>Payment Information</h3>
+            <div id="card-element">
+                <!-- Stripe card element will be inserted here -->
+            </div>
+            <div id="card-errors" role="alert"></div>
+            <button id="submit-payment" class="payment-button" disabled>Pay Now</button>
+        </div>
+        
+        <div class="payment-success" id="payment-success">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2>Payment Successful!</h2>
+            <p>Thank you for your purchase. Your service is now active.</p>
+            <a href="{{ url_for('services') }}" class="payment-button">Return to Services</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tyledeclouds. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let stripe = Stripe('{{ stripe_key }}');
+        let elements = stripe.elements();
+        let selectedService = null;
+        let paymentIntentId = null;
+        
+        // Create card elements
+        let style = {
+            base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+        
+        let card = elements.create('card', {style: style});
+        card.mount('#card-element');
+        
+        // Handle real-time validation errors from the card Element
+        card.on('change', function(event) {
+            let displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+            
+            // Enable payment button if card valid and service selected
+            document.getElementById('submit-payment').disabled = !(event.complete && selectedService);
+        });
+        
+        // Handle service selection
+        document.querySelectorAll('.service-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                // Remove selection from all cards
+                document.querySelectorAll('.service-card').forEach(function(c) {
+                    c.classList.remove('selected');
+                });
+                
+                // Add selection to clicked card
+                this.classList.add('selected');
+                selectedService = this.getAttribute('data-service-id');
+                
+                // Enable payment button if card data is complete
+                let cardComplete = document.getElementById('card-errors').textContent === '';
+                document.getElementById('submit-payment').disabled = !(cardComplete && selectedService);
+            });
+        });
+        
+        // Handle form submission
+        let form = document.getElementById('submit-payment');
+        form.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Disable the submit button to prevent repeated clicks
+            form.disabled = true;
+            
+            if (!selectedService) {
+                document.getElementById('card-errors').textContent = 'Please select a service package.';
+                form.disabled = false;
+                return;
+            }
+            
+            // Create PaymentIntent on the server
+            fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    serviceId: selectedService
+                }),
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.error) {
+                    document.getElementById('card-errors').textContent = data.error;
+                    form.disabled = false;
+                    return;
+                }
+                
+                paymentIntentId = data.payment_id;
+                
+                // Confirm the payment with the card Element
+                stripe.confirmCardPayment(data.clientSecret, {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            // You can collect billing details here if needed
+                        }
+                    }
+                })
+                .then(function(result) {
+                    if (result.error) {
+                        // Show error to customer
+                        document.getElementById('card-errors').textContent = result.error.message;
+                        form.disabled = false;
+                    } else {
+                        // Payment successful
+                        if (result.paymentIntent.status === 'succeeded') {
+                            // Notify server about successful payment
+                            return fetch('/api/payment-success', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    paymentId: paymentIntentId
+                                }),
+                            })
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(data) {
+                                if (data.success) {
+                                    // Show success UI
+                                    document.querySelector('.payment-form').style.display = 'none';
+                                    document.querySelector('.service-options').style.display = 'none';
+                                    document.querySelector('.payment-title').style.display = 'none';
+                                    document.getElementById('payment-success').style.display = 'block';
+                                } else {
+                                    document.getElementById('card-errors').textContent = data.error || 'Payment recorded but failed to activate service. Please contact support.';
+                                    form.disabled = false;
+                                }
+                            });
+                        }
+                    }
+                });
+            })
+            .catch(function(error) {
+                document.getElementById('card-errors').textContent = 'An error occurred during payment processing. Please try again.';
+                console.error('Error:', error);
+                form.disabled = false;
+            });
+        });
+        
+        // Check auth status to update navigation
+        fetch('/api/user-status')
+            .then(response => response.json())
+            .then(data => {
+                const authLink = document.getElementById('authLink');
+                if (data.isLoggedIn) {
+                    authLink.textContent = 'Logout';
+                    authLink.href = '#';
+                    authLink.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        fetch('/api/logout', {
+                            method: 'POST',
+                        })
+                        .then(() => {
+                            window.location.href = '/';
+                        });
+                    });
+                }
+            });
+    </script>
+</body>
+</html>

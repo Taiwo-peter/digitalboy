@@ -1,9 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success - Tyledeclouds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .success-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+        
+        .success-title {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .success-message {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        
+        .next-steps {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .next-steps ol {
+            margin-left: 20px;
+        }
+        
+        .next-steps li {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .order-id {
+            font-size: 14px;
+            color: #95a5a6;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Tyledeclouds</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contactus') }}">Contact</a></li>
+                    <li><a href="#" id="authLink">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-{% extends "base.html" %}
-{% block content %}
-<div class="payment-container">
-    <h1>Payment Successful!</h1>
-    <p>Thank you for your payment. Your transaction has been completed successfully.</p>
-    <a href="{{ url_for('services') }}" class="btn btn-primary">Return to Services</a>
-</div>
-{% endblock %}
+    <div class="container success-container">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-message">Thank you for purchasing our cloud services. Your payment has been processed successfully, and your service is now active.</p>
+        
+        <div class="next-steps">
+            <h3>Next Steps:</h3>
+            <ol>
+                <li>Check your email for a detailed receipt and service information.</li>
+                <li>Our team will contact you within 24 hours to set up an initial consultation.</li>
+                <li>Prepare any information about your current infrastructure to make the onboarding process smoother.</li>
+                <li>Explore our services section for additional resources and information.</li>
+            </ol>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('services') }}" class="btn">View Services</a>
+            <a href="{{ url_for('contactus') }}" class="btn">Contact Support</a>
+        </div>
+        
+        <p class="order-id">Order Reference: {{ session.get('payment_id', 'TDC-' + range(10000, 99999) | random | string) }}</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tyledeclouds. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle logout
+        document.getElementById('authLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/api/logout', {
+                method: 'POST',
+            })
+            .then(() => {
+                window.location.href = '/';
+            });
+        });
+    </script>
+</body>
+</html>
