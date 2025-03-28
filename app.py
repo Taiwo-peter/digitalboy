@@ -1,5 +1,6 @@
 import os
 import logging
+import stripe
 from flask import Flask, render_template, session, redirect, url_for, jsonify, request
 
 # Set up logging
@@ -12,8 +13,35 @@ app = Flask(__name__)
 # Set secret key for session management
 app.secret_key = os.environ.get("SESSION_SECRET", "tyledeclouds_default_secret")
 
-# Simple in-memory user storage for demonstration
+# Initialize Stripe
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+stripe_publishable_key = os.environ.get("STRIPE_PUBLISHABLE_KEY")
+
+# Service package prices
+service_prices = {
+    "basic": {
+        "name": "Basic Cloud Package",
+        "price": 999,  # $9.99
+        "currency": "usd",
+        "description": "Basic cloud consulting services package"
+    },
+    "standard": {
+        "name": "Standard Cloud Package",
+        "price": 2999,  # $29.99
+        "currency": "usd",
+        "description": "Standard cloud consulting services with implementation support"
+    },
+    "premium": {
+        "name": "Premium Cloud Package",
+        "price": 4999,  # $49.99
+        "currency": "usd",
+        "description": "Premium cloud consulting with full implementation and ongoing support"
+    }
+}
+
+# Simple in-memory storage for demonstration
 users = {}
+payments = {}
 
 # Define routes
 @app.route('/')
@@ -189,3 +217,87 @@ def api_user_status():
         })
     else:
         return jsonify({"isLoggedIn": False})
+
+# Payment routes
+@app.route('/payment.html')
+def payment():
+    """Display payment page with service options"""
+    if not session.get('logged_in'):
+        return redirect(url_for('signup'))
+    
+    return render_template('payment.html', 
+                          stripe_key=stripe_publishable_key,
+                          services=service_prices)
+
+@app.route('/api/create-payment-intent', methods=['POST'])
+def create_payment_intent():
+    """Create a payment intent with Stripe"""
+    try:
+        if not session.get('logged_in'):
+            return jsonify({"error": "Please log in to make a payment"}), 401
+            
+        data = request.json
+        service_id = data.get('serviceId')
+        
+        if not service_id or service_id not in service_prices:
+            return jsonify({"error": "Invalid service selected."}), 400
+            
+        service = service_prices[service_id]
+        
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=service['price'],
+            currency=service['currency'],
+            description=service['description'],
+            metadata={
+                'service_id': service_id,
+                'user_email': session.get('email')
+            }
+        )
+        
+        # Store payment intent in our temporary storage
+        payment_id = intent.id
+        payments[payment_id] = {
+            'service': service_id,
+            'user_email': session.get('email'),
+            'amount': service['price'],
+            'status': 'pending'
+        }
+        
+        return jsonify({
+            'clientSecret': intent.client_secret,
+            'payment_id': payment_id
+        })
+    except Exception as e:
+        logger.error(f"Error creating payment intent: {str(e)}")
+        return jsonify({"error": "Payment processing failed. Please try again."}), 500
+
+@app.route('/api/payment-success', methods=['POST'])
+def payment_success():
+    """Process successful payment"""
+    try:
+        data = request.json
+        payment_id = data.get('paymentId')
+        
+        if not payment_id or payment_id not in payments:
+            return jsonify({"error": "Invalid payment reference."}), 400
+            
+        # Update payment status
+        payments[payment_id]['status'] = 'completed'
+        logger.info(f"Payment {payment_id} completed successfully")
+        
+        return jsonify({
+            "success": True,
+            "message": "Thank you for your payment! Your service is now active."
+        })
+    except Exception as e:
+        logger.error(f"Error processing payment success: {str(e)}")
+        return jsonify({"error": "Failed to record payment. Please contact support."}), 500
+
+@app.route('/payment-success.html')
+def payment_success_page():
+    """Display payment success page"""
+    if not session.get('logged_in'):
+        return redirect(url_for('signup'))
+    
+    return render_template('payment_success.html')
