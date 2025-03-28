@@ -1,17 +1,32 @@
 import os
 import logging
 import stripe
-from flask import Flask, render_template, session, redirect, url_for, jsonify, request
+from flask import Flask, render_template, session, redirect, url_for, jsonify, request, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
+from datetime import datetime, timedelta
 
-# Set up logging
-logging.basicConfig(level=logging.DEBUG)
+# Set up logging - reduce level to improve performance
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Create Flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+
+# Apply ProxyFix to handle forwarded headers properly
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+
+# Configure static files with cache control
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # 1 year in seconds
 
 # Set secret key for session management
 app.secret_key = os.environ.get("SESSION_SECRET", "tyledeclouds_default_secret")
+
+# Enable session cookie security
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
 
 # Initialize Stripe
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
@@ -43,70 +58,111 @@ service_prices = {
 users = {}
 payments = {}
 
-# Define routes
+# Middleware to check authentication for protected pages
+def login_required(route_func):
+    """Decorator to check if user is logged in before rendering protected pages"""
+    def wrapper(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('signup'))
+        return route_func(*args, **kwargs)
+    wrapper.__name__ = route_func.__name__
+    return wrapper
+
+# Static asset versioning for cache busting 
+def versioned_static(filename):
+    """Add a version query parameter to static asset URLs for cache busting"""
+    version = datetime.now().strftime("%Y%m%d%H")
+    return url_for('static', filename=filename, v=version)
+
+# Create a simple in-memory cache
+_template_cache = {}
+def render_template_cached(template_name, **context):
+    """Simple in-memory caching for templates to improve performance"""
+    # Skip caching for dynamic pages that depend on session
+    if session.get('logged_in') or 'payment' in template_name or 'logout' in template_name:
+        return render_template(template_name, **context)
+    
+    # Create a cache key based on template name and context
+    cache_key = f"{template_name}:{hash(frozenset(context.items()))}"
+    
+    # Check if template is cached
+    if cache_key in _template_cache:
+        # Validate cache isn't stale (older than 5 minutes)
+        cached_time, cached_content = _template_cache[cache_key]
+        if datetime.now() - cached_time < timedelta(minutes=5):
+            return cached_content
+    
+    # Render template and store in cache
+    rendered = render_template(template_name, **context)
+    _template_cache[cache_key] = (datetime.now(), rendered)
+    return rendered
+
+# Optimize static file serving
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    """Serve static files with long cache times"""
+    response = send_from_directory(app.static_folder, filename)
+    # Add cache headers
+    response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+    return response
+
+# Define routes with optimized rendering
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('index.html')
+    return render_template_cached('index.html', versioned_static=versioned_static)
 
 @app.route('/home.html')
 def home():
-    return render_template('home.html')
+    return render_template_cached('home.html', versioned_static=versioned_static)
 
 @app.route('/services.html')
+@login_required
 def services():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('services.html')
+    return render_template('services.html', versioned_static=versioned_static)
 
 @app.route('/aboutus.html')
 def aboutus():
-    return render_template('aboutus.html')
+    return render_template_cached('aboutus.html', versioned_static=versioned_static)
 
 @app.route('/contactus.html')
 def contactus():
-    return render_template('contactus_new.html')
+    return render_template_cached('contactus_new.html', versioned_static=versioned_static)
 
 @app.route('/signup.html')
 def signup():
-    return render_template('signup_new.html')
+    return render_template_cached('signup_new.html', versioned_static=versioned_static)
 
 # Service detail pages - require authentication
 @app.route('/cloud_migration.html')
+@login_required
 def cloud_migration():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('cloud_migration.html')
+    return render_template('cloud_migration.html', versioned_static=versioned_static)
 
 @app.route('/cloud_optimization.html')
+@login_required
 def cloud_optimization():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('cloud_optimization.html')
+    return render_template('cloud_optimization.html', versioned_static=versioned_static)
 
 @app.route('/cloud_security.html')
+@login_required
 def cloud_security():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('cloud_security.html')
+    return render_template('cloud_security.html', versioned_static=versioned_static)
 
 @app.route('/cloud_implementation.html')
+@login_required
 def cloud_implementation():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('cloud_implementation.html')
+    return render_template('cloud_implementation.html', versioned_static=versioned_static)
 
 @app.route('/cloud_consulting.html')
+@login_required
 def cloud_consulting():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('cloud_consulting.html')
+    return render_template('cloud_consulting.html', versioned_static=versioned_static)
 
 @app.route('/managed_services.html')
+@login_required
 def managed_services():
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    return render_template('managed_services.html')
+    return render_template('managed_services.html', versioned_static=versioned_static)
 
 # API Endpoints
 @app.route('/api/signup', methods=['POST'])
@@ -229,14 +285,13 @@ def api_user_status():
 # Payment routes
 @app.route('/payment.html')
 @app.route('/payment')
+@login_required
 def payment():
     """Display payment page with service options"""
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    
     return render_template('payment_new.html', 
-                          stripe_key=stripe_publishable_key,
-                          services=service_prices)
+                         stripe_key=stripe_publishable_key,
+                         services=service_prices,
+                         versioned_static=versioned_static)
 
 @app.route('/api/create-payment-intent', methods=['POST'])
 def create_payment_intent():
@@ -305,9 +360,7 @@ def payment_success():
 
 @app.route('/payment-success.html')
 @app.route('/payment-success')
+@login_required
 def payment_success_page():
     """Display payment success page"""
-    if not session.get('logged_in'):
-        return redirect(url_for('signup'))
-    
-    return render_template('payment_success.html')
+    return render_template('payment_success.html', versioned_static=versioned_static)
