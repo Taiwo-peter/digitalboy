@@ -181,9 +181,17 @@ def api_login():
 
 @app.route('/api/logout', methods=['POST'])
 def api_logout():
-    """Handle user logout"""
+    """Handle user logout API for AJAX requests"""
     session.clear()
     return jsonify({"message": "Logged out successfully."}), 200
+
+@app.route('/logout.html')
+@app.route('/logout')
+def logout():
+    """Display logout page and clear session"""
+    # Clear the user session
+    session.clear()
+    return render_template('logout.html')
 
 @app.route('/api/contact', methods=['POST'])
 def api_contact():
