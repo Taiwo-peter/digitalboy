@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyledeclouds - Sign Up</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4CAF50;
+            --warning-color: #ff9e00;
+            --danger-color: #ef476f;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --gray-dark: #6c757d;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --hover-transform: translateY(-5px);
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .navbar__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        #navbar__logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar__menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar__item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar__links {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .navbar__links:hover {
+            color: var(--primary-color);
+        }
+        
+        .navbar__btn {
+            display: flex;
+            align-items: center;
+        }
+        
+        .button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .button:hover {
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .navbar__toggle {
+            display: none;
+        }
+        
+        /* Auth Section */
+        .auth-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+        }
+        
+        .auth-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .auth-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .auth-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .auth-container-wrapper {
+            max-width: 1000px;
+            margin: -2rem auto 4rem;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .auth-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            padding-bottom: 2rem;
+        }
+        
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            background-color: var(--gray-light);
+            border-bottom: 1px solid var(--gray-medium);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            color: var(--gray-dark);
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        /* Auth Forms */
+        .auth-form-container {
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .auth-form-container h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .auth-form-container p {
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+        }
+        
+        .auth-form {
+            text-align: left;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        }
+        
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        .form-message {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .form-message.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .form-message.error {
+            background-color: rgba(239, 71, 111, 0.1);
+            color: var(--danger-color);
+            border: 1px solid rgba(239, 71, 111, 0.2);
+        }
+        
+        .auth-button {
+            width: 100%;
+            padding: 0.8rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
+            margin-top: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .auth-button:hover {
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .auth-message {
+            margin-top: 1.5rem;
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+        }
+        
+        .auth-switch {
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .auth-switch:hover {
+            text-decoration: underline;
+        }
+        
+        /* Features Section */
+        .auth-features {
+            background-color: var(--gray-light);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--gray-medium);
+            text-align: center;
+        }
+        
+        .auth-features h3 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer__container {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+        
+        .footer__links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer__link--wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer__link--items {
+            min-width: 160px;
+        }
+        
+        .footer__link--items h2 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .footer__link--items a {
+            color: white;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            display: block;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer__link--items a:hover {
+            opacity: 1;
+        }
+        
+        .social__media {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .social__media--wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer__logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        #footer__logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .website__rights {
+            color: white;
+            opacity: 0.6;
+        }
+        
+        .social__icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social__icon--link {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social__icon--link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 960px) {
+            .footer__link--wrapper {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .social__media--wrap {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .website__rights {
+                margin: 1rem 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .auth-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .navbar__toggle {
+                display: block;
+                cursor: pointer;
+            }
+            
+            .navbar__toggle .bar {
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                transition: all 0.3s ease-in-out;
+                background: #131313;
+                display: block;
+            }
+            
+            .navbar__menu {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                flex-direction: column;
+                width: 100%;
+                background-color: white;
+                border-bottom: 1px solid var(--gray-medium);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+            
+            .navbar__menu.active {
+                left: 0;
+            }
+            
+            .navbar__item {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .navbar__links {
+                display: block;
+                width: 100%;
+                padding: 1rem 0;
+            }
+            
+            .navbar__btn {
+                justify-content: center;
+                width: 100%;
+                padding: 1rem 0;
+            }
+            
+            .button {
+                width: 80%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .auth-tab {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .auth-form-container {
+                padding: 1.5rem;
+            }
+            
+            .auth-features {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="{{ url_for('index') }}" id="navbar__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="{{ url_for('home') }}" class="navbar__links">Home</a></li>
+                <li class="navbar__item"><a href="{{ url_for('services') }}" class="navbar__links">Services</a></li>
+                <li class="navbar__item"><a href="{{ url_for('contactus') }}" class="navbar__links">Contact</a></li>
+                <li class="navbar__item"><a href="{{ url_for('aboutus') }}" class="navbar__links">About Us</a></li>
+                {% if session.get('logged_in') %}
+                <li class="navbar__btn"><a href="{{ url_for('logout') }}" class="button" style="background-color: #ef476f;">Logout</a></li>
+                {% else %}
+                <li class="navbar__btn"><a href="{{ url_for('signup') }}" class="button">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Auth Hero -->
+    <section class="auth-hero">
+        <div class="container">
+            <h1>Welcome to Tyledeclouds</h1>
+            <p>Your trusted partner for cloud consulting and implementation services. Create an account or sign in to access our full range of services.</p>
+        </div>
+    </section>
+
+    <!-- Authentication Section -->
+    <div class="auth-container-wrapper">
+        <div class="auth-container">
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="signupTab">Sign Up</div>
+                <div class="auth-tab" id="loginTab">Login</div>
+            </div>
+            
+            <!-- Signup Form -->
+            <div class="auth-form-container" id="signupFormContainer">
+                <h2>Create an Account</h2>
+                <p>Join Tyledeclouds to access exclusive cloud services content</p>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupFirstName">First Name</label>
+                            <input type="text" id="signupFirstName" name="firstName" placeholder="Enter your first name" required>
+                            <div id="signupFirstNameError" class="error-message" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLastName">Last Name</label>
+                            <input type="text" id="signupLastName" name="lastName" placeholder="Enter your last name" required>
+                            <div id="signupLastNameError" class="error-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupUsername">Username</label>
+                        <input type="text" id="signupUsername" name="username" placeholder="Choose a username" required>
+                        <div id="signupUsernameError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" name="email" placeholder="Enter your email address" required>
+                        <div id="signupEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" name="password" placeholder="Create a password" required minlength="6">
+                            <div id="signupPasswordError" class="error-message" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required minlength="6">
+                            <div id="signupConfirmPasswordError" class="error-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-button">Create Account</button>
+                </form>
+                <div class="auth-message">
+                    Already have an account? <span class="auth-switch" id="switchToLogin">Login here</span>
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form-container" id="loginFormContainer" style="display: none;">
+                <h2>Welcome Back</h2>
+                <p>Login to access your Tyledeclouds account</p>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" placeholder="Enter your email address" required>
+                        <div id="loginEmailError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+                        <div id="loginPasswordError" class="error-message" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="auth-button">Login</button>
+                </form>
+                <div class="auth-message">
+                    Don't have an account? <span class="auth-switch" id="switchToSignup">Sign up here</span>
+                </div>
+            </div>
+            
+            <div id="formMessage" class="form-message" style="display: none; margin: 0 2rem;"></div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="auth-features">
+            <h3>Why Join Tyledeclouds?</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-title">Secure Cloud Solutions</div>
+                    <div class="feature-description">Implement robust security measures to protect your data and applications in the cloud.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="feature-title">Fast Implementation</div>
+                    <div class="feature-description">Accelerate your cloud migration with our efficient implementation strategies.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-title">Expert Support</div>
+                    <div class="feature-description">Access to our team of cloud specialists for guidance and technical assistance.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer__container">
+        <div class="footer__links">
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>About us</h2>
+                    <a href="{{ url_for('aboutus') }}">How it works</a>
+                    <a href="{{ url_for('aboutus') }}">Testimonials</a>
+                    <a href="{{ url_for('aboutus') }}">Careers</a>
+                    <a href="{{ url_for('aboutus') }}">Investment</a>
+                    <a href="{{ url_for('aboutus') }}">Terms of Services</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Contact Us</h2>
+                    <a href="{{ url_for('contactus') }}">Contact</a>
+                    <a href="{{ url_for('contactus') }}">Support</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('contactus') }}">Partnership</a>
+                </div>
+            </div>
+            <div class="footer__link--wrapper">
+                <div class="footer__link--items">
+                    <h2>Videos</h2>
+                    <a href="/">Submit Videos</a>
+                    <a href="/">Ambassadors</a>
+                    <a href="/">Agency</a>
+                    <a href="/">Influencer</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Social Media</h2>
+                    <a href="/">Instagram</a>
+                    <a href="/">YouTube</a>
+                    <a href="/">Facebook</a>
+                    <a href="/">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="social__media">
+            <div class="social__media--wrap">
+                <div class="footer__logo">
+                    <a href="{{ url_for('index') }}" id="footer__logo"><i class="fas fa-cloud"></i>Tyledeclouds</a>
+                </div>
+                <p class="website__rights">&copy; Tyledeclouds 2025. All rights reserved</p>
+                <div class="social__icons">
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="/" class="social__icon--link" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbarMenu = document.querySelector('.navbar__menu');
+        
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                navbarMenu.classList.toggle('active');
+            });
+        }
+        
+        // Auth tab switching
+        const signupTab = document.getElementById('signupTab');
+        const loginTab = document.getElementById('loginTab');
+        const signupFormContainer = document.getElementById('signupFormContainer');
+        const loginFormContainer = document.getElementById('loginFormContainer');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const formMessage = document.getElementById('formMessage');
+        
+        function switchToLoginView() {
+            signupTab.classList.remove('active');
+            loginTab.classList.add('active');
+            signupFormContainer.style.display = 'none';
+            loginFormContainer.style.display = 'block';
+            formMessage.style.display = 'none';
+        }
+        
+        function switchToSignupView() {
+            loginTab.classList.remove('active');
+            signupTab.classList.add('active');
+            loginFormContainer.style.display = 'none';
+            signupFormContainer.style.display = 'block';
+            formMessage.style.display = 'none';
+        }
+        
+        // Tab click handlers
+        if (loginTab) loginTab.addEventListener('click', switchToLoginView);
+        if (signupTab) signupTab.addEventListener('click', switchToSignupView);
+        
+        // Switch link handlers
+        if (switchToLogin) switchToLogin.addEventListener('click', switchToLoginView);
+        if (switchToSignup) switchToSignup.addEventListener('click', switchToSignupView);
+        
+        // Form submission handlers
+        const signupForm = document.getElementById('signupForm');
+        const loginForm = document.getElementById('loginForm');
+        
+        // Clear error messages
+        function clearErrorMessages(formType) {
+            const errorElements = document.querySelectorAll(`#${formType}FormContainer .error-message`);
+            errorElements.forEach(element => {
+                element.style.display = 'none';
+                element.textContent = '';
+            });
+        }
+        
+        // Display error message
+        function displayError(fieldId, message) {
+            const errorElement = document.getElementById(`${fieldId}Error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+        
+        // Display form message
+        function displayFormMessage(message, isSuccess = true) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message';
+            formMessage.classList.add(isSuccess ? 'success' : 'error');
+            formMessage.style.display = 'block';
+        }
+        
+        // Signup form submission
+        if (signupForm) {
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrorMessages('signup');
+                
+                // Get form values
+                const firstName = document.getElementById('signupFirstName').value.trim();
+                const lastName = document.getElementById('signupLastName').value.trim();
+                const username = document.getElementById('signupUsername').value.trim();
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                
+                // Validate inputs
+                let isValid = true;
+                
+                if (!firstName) {
+                    displayError('signupFirstName', 'First name is required');
+                    isValid = false;
+                }
+                
+                if (!lastName) {
+                    displayError('signupLastName', 'Last name is required');
+                    isValid = false;
+                }
+                
+                if (!username) {
+                    displayError('signupUsername', 'Username is required');
+                    isValid = false;
+                }
+                
+                if (!email) {
+                    displayError('signupEmail', 'Email is required');
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    displayError('signupEmail', 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    displayError('signupPassword', 'Password is required');
+                    isValid = false;
+                } else if (password.length < 6) {
+                    displayError('signupPassword', 'Password must be at least 6 characters');
+                    isValid = false;
+                }
+                
+                if (password !== confirmPassword) {
+                    displayError('signupConfirmPassword', 'Passwords do not match');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Submit the form via AJAX
+                    fetch('/api/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            firstName,
+                            lastName,
+                            username,
+                            email,
+                            password
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            displayFormMessage(data.error, false);
+                        } else {
+                            displayFormMessage(data.message || 'Sign-up successful! Redirecting to services...');
+                            signupForm.reset();
+                            
+                            // Redirect after successful signup
+                            setTimeout(() => {
+                                window.location.href = '/services';
+                            }, 1500);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        displayFormMessage('An unexpected error occurred. Please try again.', false);
+                    });
+                }
+            });
+        }
+        
+        // Login form submission
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrorMessages('login');
+                
+                // Get form values
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+                
+                // Validate inputs
+                let isValid = true;
+                
+                if (!email) {
+                    displayError('loginEmail', 'Email is required');
+                    isValid = false;
+                }
+                
+                if (!password) {
+                    displayError('loginPassword', 'Password is required');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Submit the form via AJAX
+                    fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            displayFormMessage(data.error, false);
+                        } else {
+                            displayFormMessage(data.message || 'Login successful! Redirecting to services...');
+                            loginForm.reset();
+                            
+                            // Redirect after successful login
+                            setTimeout(() => {
+                                window.location.href = '/services';
+                            }, 1500);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        displayFormMessage('An unexpected error occurred. Please try again.', false);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

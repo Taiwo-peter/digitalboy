@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyledeclouds - Logout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4CAF50;
+            --warning-color: #ff9e00;
+            --danger-color: #ef476f;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --gray-dark: #6c757d;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+        
+        .logout-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .logout-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .logout-icon {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-radius: 50%;
+            padding: 1rem;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .logout-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .logout-message {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+        }
+        
+        .return-home-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .return-home-btn:hover {
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .logout-footer {
+            margin-top: 3rem;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+        
+        .redirect-text {
+            margin-top: 1.5rem;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar-menu a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+        
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+        }
+        
+        /* General */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logout-card {
+                padding: 2rem;
+            }
+            
+            .logout-title {
+                font-size: 1.8rem;
+            }
+            
+            .navbar-menu {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logout-icon {
+                font-size: 4rem;
+            }
+            
+            .logout-card {
+                padding: 1.5rem;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .navbar-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="navbar-logo">
+                <i class="fas fa-cloud"></i> Tyledeclouds
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('contactus') }}">Contact</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up / Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Logout Content -->
+    <div class="logout-container">
+        <div class="logout-card">
+            <i class="fas fa-sign-out-alt logout-icon"></i>
+            <h1 class="logout-title">You've Been Logged Out</h1>
+            <p class="logout-message">Thank you for using Tyledeclouds. You have been successfully logged out of your account. We hope to see you again soon!</p>
+            <a href="{{ url_for('index') }}" class="return-home-btn">Return to Home</a>
+            <div class="redirect-text">You will be redirected to the home page in <span id="countdown">5</span> seconds.</div>
+            <div class="logout-footer">
+                <p>Need help? <a href="{{ url_for('contactus') }}">Contact our support team</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-copyright">
+                &copy; 2025 Tyledeclouds. All rights reserved.
+            </div>
+            <div class="footer-social">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-linkedin-in"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown timer for redirection
+        let secondsLeft = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdownInterval = setInterval(function() {
+            secondsLeft--;
+            countdownElement.textContent = secondsLeft;
+            
+            if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = "{{ url_for('index') }}";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

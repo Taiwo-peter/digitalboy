@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success - Tyledeclouds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4CAF50;
+            --warning-color: #ff9e00;
+            --danger-color: #ef476f;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --gray-dark: #6c757d;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --hover-transform: translateY(-8px);
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        /* Success Hero */
+        .success-hero {
+            background: linear-gradient(135deg, var(--success-color) 0%, #2E7D32 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .success-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+        }
+        
+        .success-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .success-hero-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            border-radius: 50%;
+        }
+        
+        .success-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .success-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Success Container */
+        .success-container {
+            max-width: 1000px;
+            margin: -50px auto 4rem;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+        
+        .success-main {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 3rem;
+        }
+        
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--gray-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .order-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .order-info-label {
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .order-info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Next Steps */
+        .next-steps-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .next-steps-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .next-steps-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .step-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all var(--transition-speed) ease;
+            border-top: 4px solid transparent;
+        }
+        
+        .step-card:nth-child(1) {
+            border-top-color: #4361ee;
+        }
+        
+        .step-card:nth-child(2) {
+            border-top-color: #4cc9f0;
+        }
+        
+        .step-card:nth-child(3) {
+            border-top-color: #4CAF50;
+        }
+        
+        .step-card:nth-child(4) {
+            border-top-color: #ff9e00;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.8rem;
+        }
+        
+        .step-content {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Order ID */
+        .order-id {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            margin-top: 2rem;
+        }
+        
+        .order-id-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar-menu a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+        }
+        
+        .footer-social i {
+            margin-left: 1rem;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-social i:hover {
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .order-details {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .next-steps-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .navbar-menu {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .success-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .success-main {
+                padding: 2rem 1.5rem;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .navbar-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+        
+        /* General */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .mb-5 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="navbar-logo">
+                <i class="fas fa-cloud"></i> Tyledeclouds
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('contactus') }}">Contact</a></li>
+                <li><a href="#" id="authLink">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Success Hero -->
+    <section class="success-hero">
+        <div class="container">
+            <i class="fas fa-check-circle success-hero-icon"></i>
+            <h1>Payment Successful!</h1>
+            <p>Thank you for purchasing our cloud services. Your order has been confirmed and your service is now active.</p>
+        </div>
+    </section>
+
+    <div class="success-container">
+        <div class="success-main">
+            <!-- Order Details -->
+            <div class="order-details">
+                <div class="order-info">
+                    <span class="order-info-label">Order Reference</span>
+                    <span class="order-info-value">TDC-{{ range(10000, 99999) | random }}</span>
+                </div>
+                <div class="order-info">
+                    <span class="order-info-label">Date</span>
+                    <span class="order-info-value">{{ now().strftime('%B %d, %Y') }}</span>
+                </div>
+                <div class="order-info">
+                    <span class="order-info-label">Payment Status</span>
+                    <span class="order-info-value" style="color: var(--success-color);">Completed</span>
+                </div>
+                <div class="order-info">
+                    <span class="order-info-label">Email</span>
+                    <span class="order-info-value">{{ session.get('email', 'user@example.com') }}</span>
+                </div>
+            </div>
+            
+            <!-- Next Steps -->
+            <h2 class="next-steps-title">Next Steps</h2>
+            <div class="next-steps-list">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Check Your Email</h3>
+                    <p class="step-content">We've sent you a detailed receipt and service information to your registered email address.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Initial Consultation</h3>
+                    <p class="step-content">Our team will contact you within 24 hours to schedule an initial consultation and onboarding session.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Prepare Information</h3>
+                    <p class="step-content">Gather information about your current infrastructure to make the onboarding process smoother.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Explore Resources</h3>
+                    <p class="step-content">Visit our services section for additional resources and information about your cloud package.</p>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{{ url_for('services') }}" class="btn btn-primary">
+                    <i class="fas fa-cloud mr-2"></i> View Services
+                </a>
+                <a href="{{ url_for('contactus') }}" class="btn btn-outline">
+                    <i class="fas fa-headset mr-2"></i> Contact Support
+                </a>
+            </div>
+            
+            <!-- Order ID -->
+            <div class="order-id">
+                A confirmation email has been sent to <span class="order-id-value">{{ session.get('email', 'your registered email') }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-copyright">
+                &copy; 2025 Tyledeclouds. All rights reserved.
+            </div>
+            <div class="footer-social">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-linkedin-in"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Handle logout
+        document.getElementById('authLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/api/logout', {
+                method: 'POST',
+            })
+            .then(() => {
+                window.location.href = '/';
+            });
+        });
+    </script>
+</body>
+</html>

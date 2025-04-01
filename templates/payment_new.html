@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyledeclouds - Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4CAF50;
+            --warning-color: #ff9e00;
+            --danger-color: #ef476f;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --gray-dark: #6c757d;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --hover-transform: translateY(-8px);
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        /* Payment Page Container */
+        .payment-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 4rem 0 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+        }
+        
+        .payment-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .payment-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .payment-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .payment-container {
+            max-width: 1200px;
+            margin: -4rem auto 4rem;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .payment-main {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+        
+        /* Service Plans */
+        .payment-plans {
+            padding: 3rem;
+        }
+        
+        .plans-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+        }
+        
+        .plans-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plans-title p {
+            color: var(--gray-dark);
+        }
+        
+        .service-options {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .service-card {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--gray-medium);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #e0e0e0, #f0f0f0);
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .service-card.basic::before {
+            background: linear-gradient(90deg, #6EDCD9, #8BE8E5);
+        }
+        
+        .service-card.standard::before {
+            background: linear-gradient(90deg, #3A86FF, #60A5FA);
+        }
+        
+        .service-card.premium::before {
+            background: linear-gradient(90deg, #9546C4, #BE6AE8);
+        }
+        
+        .service-card:hover {
+            transform: var(--hover-transform);
+            box-shadow: var(--card-shadow);
+            border-color: transparent;
+        }
+        
+        .service-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+            transform: var(--hover-transform);
+        }
+        
+        .service-card.basic.selected::before {
+            background: linear-gradient(90deg, #6EDCD9, #8BE8E5);
+        }
+        
+        .service-card.standard.selected::before {
+            background: linear-gradient(90deg, #3A86FF, #60A5FA);
+        }
+        
+        .service-card.premium.selected::before {
+            background: linear-gradient(90deg, #9546C4, #BE6AE8);
+        }
+        
+        .service-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .service-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: var(--primary-color);
+        }
+        
+        .service-price .period {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            font-weight: 400;
+        }
+        
+        .service-features {
+            margin: 1.5rem 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .service-features li i {
+            color: var(--success-color);
+        }
+        
+        .select-service-btn {
+            width: 100%;
+            padding: 0.8rem 0;
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .select-service-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .service-card.selected .select-service-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Popular Badge */
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--warning-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 0 0 0 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Payment Form */
+        .payment-form-container {
+            background-color: var(--gray-light);
+            padding: 3rem;
+            border-top: 1px solid var(--gray-medium);
+        }
+        
+        .payment-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .payment-form h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        #card-element {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+        
+        #card-element:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        }
+        
+        #card-errors {
+            color: var(--danger-color);
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .payment-button {
+            width: 100%;
+            padding: 0.8rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
+            margin-top: 1rem;
+        }
+        
+        .payment-button:hover:not(:disabled) {
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.35);
+            transform: translateY(-2px);
+        }
+        
+        .payment-button:disabled {
+            background: linear-gradient(135deg, #a8b1da 0%, #8f96c3 100%);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        /* Secure Payment Info */
+        .secure-payment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            gap: 10px;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+        
+        .secure-payment i {
+            color: var(--success-color);
+        }
+        
+        /* Payment Success */
+        .payment-success {
+            text-align: center;
+            display: none;
+            padding: 3rem;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border-radius: 50%;
+            padding: 1rem;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .payment-method-icon {
+            font-size: 2rem;
+            color: var(--gray-dark);
+            margin: 0 0.5rem;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar-menu a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* User Menu */
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-menu-button {
+            color: #333;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1rem;
+        }
+        
+        .user-menu-button:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            display: none;
+            z-index: 1000;
+            margin-top: 0.5rem;
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-dropdown-item {
+            padding: 0.75rem 1.25rem;
+            display: block;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: var(--gray-light);
+            color: var(--primary-color);
+        }
+        
+        .user-dropdown-item.logout {
+            border-top: 1px solid var(--gray-medium);
+            color: var(--danger-color);
+        }
+        
+        .user-dropdown-item.logout:hover {
+            background-color: rgba(239, 71, 111, 0.08);
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .service-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-card {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .payment-hero {
+                padding: 3rem 0 7rem 0;
+            }
+            
+            .payment-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .payment-container {
+                margin-top: -3rem;
+            }
+            
+            .payment-plans, .payment-form-container {
+                padding: 2rem;
+            }
+            
+            .navbar-menu {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .payment-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .payment-plans, .payment-form-container {
+                padding: 1.5rem;
+            }
+            
+            .service-card {
+                padding: 1.2rem;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .navbar-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+        
+        /* General */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .mb-5 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="navbar-logo">
+                <i class="fas fa-cloud"></i> Tyledeclouds
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                <li><a href="{{ url_for('contactus') }}">Contact</a></li>
+                {% if session.get('logged_in') %}
+                <li class="user-menu">
+                    <button id="userMenuButton" class="user-menu-button">
+                        <i class="fas fa-user-circle"></i>
+                        <span>{{ session.get('username', 'Account') }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="{{ url_for('services') }}" class="user-dropdown-item">
+                            <i class="fas fa-cloud"></i> My Services
+                        </a>
+                        <a href="#" class="user-dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <a href="#" id="logoutBtn" class="user-dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('signup') }}" id="authLink">Sign Up / Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Payment Hero -->
+    <section class="payment-hero">
+        <div class="container">
+            <h1>Choose Your Cloud Journey</h1>
+            <p>Select the perfect cloud package that fits your business needs and unlock the full potential of your digital transformation with expert guidance and support.</p>
+        </div>
+    </section>
+
+    <div class="payment-container">
+        <div class="payment-main">
+            <!-- Service Plans -->
+            <section class="payment-plans">
+                <div class="plans-title">
+                    <h2>Our Service Packages</h2>
+                    <p>Tailored solutions to accelerate your cloud transformation</p>
+                </div>
+                
+                <div class="service-options">
+                    <div class="service-card basic" data-service-id="basic">
+                        <div class="service-name">Basic Cloud Package</div>
+                        <div class="service-price">$9.99 <span class="period">/month</span></div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Initial cloud assessment</li>
+                            <li><i class="fas fa-check-circle"></i> Basic migration planning</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud provider selection help</li>
+                            <li><i class="fas fa-check-circle"></i> Email support</li>
+                        </ul>
+                        <button class="select-service-btn">Select Plan</button>
+                    </div>
+                    
+                    <div class="service-card standard" data-service-id="standard">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="service-name">Standard Cloud Package</div>
+                        <div class="service-price">$29.99 <span class="period">/month</span></div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Comprehensive assessment</li>
+                            <li><i class="fas fa-check-circle"></i> Detailed migration roadmap</li>
+                            <li><i class="fas fa-check-circle"></i> Implementation assistance</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 phone support</li>
+                            <li><i class="fas fa-check-circle"></i> Performance optimization</li>
+                        </ul>
+                        <button class="select-service-btn">Select Plan</button>
+                    </div>
+                    
+                    <div class="service-card premium" data-service-id="premium">
+                        <div class="service-name">Premium Cloud Package</div>
+                        <div class="service-price">$49.99 <span class="period">/month</span></div>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Enterprise-grade assessment</li>
+                            <li><i class="fas fa-check-circle"></i> Full migration management</li>
+                            <li><i class="fas fa-check-circle"></i> Complete implementation</li>
+                            <li><i class="fas fa-check-circle"></i> Dedicated support manager</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced security setup</li>
+                            <li><i class="fas fa-check-circle"></i> Monthly performance reviews</li>
+                        </ul>
+                        <button class="select-service-btn">Select Plan</button>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa payment-method-icon"></i>
+                    <i class="fab fa-cc-mastercard payment-method-icon"></i>
+                    <i class="fab fa-cc-amex payment-method-icon"></i>
+                    <i class="fab fa-cc-discover payment-method-icon"></i>
+                    <i class="fab fa-cc-paypal payment-method-icon"></i>
+                </div>
+            </section>
+            
+            <!-- Payment Form -->
+            <section class="payment-form-container">
+                <div class="payment-form">
+                    <h3>Complete Your Purchase</h3>
+                    
+                    <div class="form-row">
+                        <label for="card-element">Card Information</label>
+                        <div id="card-element">
+                            <!-- Stripe card element will be inserted here -->
+                        </div>
+                        <div id="card-errors" role="alert"></div>
+                    </div>
+                    
+                    <button id="submit-payment" class="payment-button" disabled>
+                        <i class="fas fa-lock mr-2"></i> Pay Securely Now
+                    </button>
+                    
+                    <div class="secure-payment">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Your payment is secured with SSL encryption</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Success Section -->
+            <div class="payment-success" id="payment-success">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2 class="success-title">Payment Successful!</h2>
+                <p class="success-message">Thank you for your purchase. Your cloud service package is now active. Our team will contact you shortly to begin implementation.</p>
+                <a href="{{ url_for('services') }}" class="payment-button">Return to Services</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-copyright">
+                &copy; 2025 Tyledeclouds. All rights reserved.
+            </div>
+            <div class="footer-social">
+                <i class="fab fa-facebook-f mr-3"></i>
+                <i class="fab fa-twitter mr-3"></i>
+                <i class="fab fa-linkedin-in mr-3"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Stripe with the publishable key
+        const stripe = Stripe('{{ stripe_key }}');
+        const elements = stripe.elements();
+        let selectedService = null;
+        let paymentIntentId = null;
+        
+        // Create card elements
+        let style = {
+            base: {
+                color: '#495057',
+                fontFamily: '"Poppins", sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#adb5bd'
+                }
+            },
+            invalid: {
+                color: '#ef476f',
+                iconColor: '#ef476f'
+            }
+        };
+        
+        let card = elements.create('card', {style: style});
+        card.mount('#card-element');
+        
+        // Handle real-time validation errors from the card Element
+        card.on('change', function(event) {
+            let displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+            
+            // Enable payment button if card valid and service selected
+            document.getElementById('submit-payment').disabled = !(event.complete && selectedService);
+        });
+        
+        // Handle service selection
+        document.querySelectorAll('.service-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                // Remove selection from all cards
+                document.querySelectorAll('.service-card').forEach(function(c) {
+                    c.classList.remove('selected');
+                });
+                
+                // Add selection to clicked card
+                this.classList.add('selected');
+                selectedService = this.getAttribute('data-service-id');
+                
+                // Enable payment button if card data is complete
+                let cardComplete = document.getElementById('card-errors').textContent === '';
+                document.getElementById('submit-payment').disabled = !(cardComplete && selectedService);
+            });
+        });
+        
+        // Handle form submission
+        let form = document.getElementById('submit-payment');
+        form.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            // Show loading state
+            form.disabled = true;
+            form.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            if (!selectedService) {
+                document.getElementById('card-errors').textContent = 'Please select a service package.';
+                form.disabled = false;
+                form.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+                return;
+            }
+            
+            // Create PaymentIntent on the server
+            fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    serviceId: selectedService
+                }),
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.error) {
+                    document.getElementById('card-errors').textContent = data.error;
+                    form.disabled = false;
+                    form.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+                    return;
+                }
+                
+                paymentIntentId = data.payment_id;
+                
+                // Confirm the payment with the card Element
+                stripe.confirmCardPayment(data.clientSecret, {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            // You can collect billing details here if needed
+                        }
+                    }
+                })
+                .then(function(result) {
+                    if (result.error) {
+                        // Show error to customer
+                        document.getElementById('card-errors').textContent = result.error.message;
+                        form.disabled = false;
+                        form.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+                    } else {
+                        // Payment successful
+                        if (result.paymentIntent.status === 'succeeded') {
+                            // Notify server about successful payment
+                            return fetch('/api/payment-success', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    paymentId: paymentIntentId
+                                }),
+                            })
+                            .then(function(response) {
+                                return response.json();
+                            })
+                            .then(function(data) {
+                                if (data.success) {
+                                    // Show success UI with animation
+                                    document.querySelector('.payment-plans').style.display = 'none';
+                                    document.querySelector('.payment-form-container').style.display = 'none';
+                                    
+                                    const successElement = document.getElementById('payment-success');
+                                    successElement.style.display = 'block';
+                                    
+                                    // Scroll to success message
+                                    successElement.scrollIntoView({behavior: 'smooth'});
+                                } else {
+                                    document.getElementById('card-errors').textContent = data.error || 'Payment recorded but failed to activate service. Please contact support.';
+                                    form.disabled = false;
+                                    form.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+                                }
+                            });
+                        }
+                    }
+                });
+            })
+            .catch(function(error) {
+                document.getElementById('card-errors').textContent = 'An error occurred during payment processing. Please try again.';
+                console.error('Error:', error);
+                form.disabled = false;
+                form.innerHTML = '<i class="fas fa-lock"></i> Pay Securely Now';
+            });
+        });
+        
+        // User menu dropdown toggle
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        if (userMenuButton) {
+            userMenuButton.addEventListener('click', function() {
+                userDropdown.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            window.addEventListener('click', function(event) {
+                if (!event.target.matches('.user-menu-button') && 
+                    !event.target.closest('.user-menu-button') && 
+                    !event.target.matches('.user-dropdown') && 
+                    !event.target.closest('.user-dropdown')) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+        
+        // Logout handler
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                fetch('/api/logout', {
+                    method: 'POST',
+                })
+                .then(response => {
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
