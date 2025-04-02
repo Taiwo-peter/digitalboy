@@ -4,6 +4,7 @@ import stripe
 from flask import Flask, render_template, session, redirect, url_for, jsonify, request, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
 # Set up logging - reduce level to improve performance
 logging.basicConfig(level=logging.INFO)

@@ -1,5 +1,5 @@
 # Use the official Python image
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Set environment variables (if needed)
 ENV SESSION_SECRET="tyledeclouds_default_secret"
-ENV DATABASE_URL="sqlite:///tyledeclouds.db"
+ENV DATABASE_URL=""
 
 # Expose the port Flask runs on
 EXPOSE 5000

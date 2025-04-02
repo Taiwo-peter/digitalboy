@@ -1,11 +1,22 @@
 import psycopg2
 import os
+import time
 
 # Get database URL from environment variable
 db_url = os.getenv('DATABASE_URL')
 
+# Function to connect to the PostgreSQL database with retries
+def connect_to_db(url):
+    while True:
+        try:
+            conn = psycopg2.connect(url)
+            return conn
+        except psycopg2.OperationalError:
+            print("Database not ready yet, waiting...")
+            time.sleep(5)
+
 # Connect to PostgreSQL database
-conn = psycopg2.connect(db_url)
+conn = connect_to_db(db_url)
 cur = conn.cursor()
 
 # Create the user table if it doesn't exist
